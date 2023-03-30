@@ -2,11 +2,31 @@ namespace zomboid_server_control.Data
 {
     public class ServerConfigService
     {
-        private const string ConfigLocation = @"E:\zomboid\server\server-control-test\config\Server";
+        private AppSettings settings;
 
-        public Task<ModCollection> GetModsAsync()
+        public ServerConfigService(AppSettings settings)
         {
-            string? latest = getLatestInitFile();
+            this.settings = settings;
+        }
+
+        public string GetIniFilename()
+        {
+            var serverPath = Path.Combine(settings.ZOMBOID_PATH, AppSettings.ServerFolder);
+            var iniFile = getLatestIniFile(serverPath, AppSettings.IniFilter);
+
+
+            if (string.IsNullOrWhiteSpace(iniFile))
+                throw new Exception("Couldn't fine ini file.");
+
+            var file = new FileInfo(iniFile);
+            return file.Name;
+        }
+
+        public Task<ModCollection> GetMods()
+        {
+            throw new NotImplementedException();
+
+            string? latest = getLatestIniFile(settings.ZOMBOID_PATH, AppSettings.IniFilter);
             if (latest == null)
                 return Task.FromResult(new ModCollection());
 
@@ -14,23 +34,42 @@ namespace zomboid_server_control.Data
             return Task.FromResult(config);
         }
 
-        public Task SetModsAsync(ModCollection config)
+        public void SetMods(ModCollection config)
         {
-            throw new NotImplementedException();
+            var serverPath = Path.Combine(settings.ZOMBOID_PATH, AppSettings.ServerFolder);
+            var iniFile = getLatestIniFile(serverPath, AppSettings.IniFilter);
+
+            var modString = config.ExportModsString;
+            replaceString(iniFile, AppSettings.ModsPrefix, modString);
+
+            var workshopString = config.ExportWorkshopString;
+            replaceString(iniFile, AppSettings.WorkshopItemPrefix, workshopString);
         }
 
-        private string? getLatestInitFile()
+        private void replaceString(string file, string filter, string replacement)
         {
-            var files = Directory.GetFiles(ConfigLocation, "zomboid*.ini");
-            return files.OrderByDescending(name => name).FirstOrDefault();
+            if (!File.Exists(file))
+                throw new ArgumentException($"Zomboid ini file {file} not existing.");
+
+            var lines = File.ReadAllLines(file).ToList();
+            var index = lines.FindIndex(x => x.StartsWith(filter));
+            lines[index] = replacement;
+
+            File.WriteAllLines(file, lines);
         }
+
+        private string? getLatestIniFile(string path, string filter) =>
+            Directory
+            .GetFiles(path, filter)
+            .OrderByDescending(name => name)
+            .FirstOrDefault();
 
         private ModCollection extractIdsFromIniFile(string latest)
         {
             var lines = File.ReadAllLines(latest);
 
-            var modIds = lines.FirstOrDefault(x => x.StartsWith(ModCollection.ModsPrefix));
-            var workShopIds = lines.FirstOrDefault(x => x.StartsWith(ModCollection.WorkshopItemPrefix));
+            var modIds = lines.FirstOrDefault(x => x.StartsWith(AppSettings.ModsPrefix));
+            var workShopIds = lines.FirstOrDefault(x => x.StartsWith(AppSettings.WorkshopItemPrefix));
 
             if (modIds == null || workShopIds == null)
                 throw new Exception("Modsettings not found in ini file.");

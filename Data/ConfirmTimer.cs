@@ -18,12 +18,17 @@ namespace zomboid_server_control.Data
             this.windowMs = windowMs;
             this.limit = limit;
 
-            reset();
+            Reset();
         }
 
         public bool Confirmed => clicks > limit;
 
-        public void Start() => timer.Start();
+        public void Start()
+        {
+            timer = new System.Timers.Timer(windowMs);
+            timer.Elapsed += callback;
+            timer.Start();
+        }
 
         public int ClicksLeft => limit - clicks;
 
@@ -31,7 +36,7 @@ namespace zomboid_server_control.Data
 
         public void Click()
         {
-            reset();
+            Reset();
             clicks++;
 
             if (!Confirmed)
@@ -42,7 +47,7 @@ namespace zomboid_server_control.Data
 
         }
 
-        private void reset()
+        public void Reset()
         {
             if (timer != null)
             {
@@ -50,9 +55,6 @@ namespace zomboid_server_control.Data
                 timer.Elapsed -= callback;
                 timer.Dispose();
             }
-
-            timer = new System.Timers.Timer(windowMs);
-            timer.Elapsed += callback;
         }
 
         private void callback(object? sender, ElapsedEventArgs e) => invoke(false);

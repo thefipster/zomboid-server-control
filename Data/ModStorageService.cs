@@ -6,12 +6,16 @@ namespace zomboid_server_control.Data
     {
         private LiteDatabase database;
 
-        public ModStorageService()
+        public ModStorageService(AppSettings settings)
         {
-            database = new LiteDatabase(@"E:\zomboid\server\server-control-test\mods.db");
+            if (settings == null || string.IsNullOrWhiteSpace(settings.DATABASE_PATH))
+                throw new Exception("Database path is not specified.");
+
+            var dbPath = Path.Combine(settings.DATABASE_PATH, AppSettings.DatabaseName);
+            database = new LiteDatabase(dbPath);
         }
 
-        public IEnumerable<ModConfig> Read() => database.GetCollection<ModConfig>().FindAll();
+        public IEnumerable<ModConfig> Read() => database.GetCollection<ModConfig>().FindAll().OrderBy(x => x.Order);
 
         public void Write(IEnumerable<ModConfig> mods)
         {

@@ -2,20 +2,27 @@
 {
     public class ModCollection
     {
-        public const string ModsPrefix = "Mods=";
-        public const string WorkshopItemPrefix = "WorkshopItems=";
-
-        private List<ModConfig> modConfigs;
+        private List<ModConfig> mods;
 
         public ModCollection()
-        {
-            modConfigs = new List<ModConfig>();
-        }
+            => mods = new List<ModConfig>();
 
         public ModCollection(IEnumerable<ModConfig> mods)
             : this()
-        {
-            modConfigs.AddRange(mods);
-        }
+            => this.mods.AddRange(mods);
+
+        public string ExportModsString => 
+            AppSettings.ModsPrefix 
+            + string.Join(';', 
+                mods
+                .OrderBy(x => x.Order)
+                .Select(x => x.Id));
+
+        public string ExportWorkshopString => 
+            AppSettings.WorkshopItemPrefix 
+            + string.Join(';', 
+                mods
+                .OrderBy(x => x.Order)
+                .Select(x => x.WorkshopId));
     }
 }

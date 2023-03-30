@@ -43,6 +43,10 @@ html, body {
     font-size: 0.6rem;
 }
 
+.fip-small {
+    font-size: 0.8rem;
+}
+
 .fip-card {
     width: 100%;
     min-height: 100vh;
@@ -78,7 +82,7 @@ html, body {
 }
 
 .new-section {
-    height: 50px;
+    height: 40px;
 }
 
 .section-title {
@@ -87,6 +91,20 @@ html, body {
     color: #f7dcff;
     line-height: 1.2;
     padding-bottom: 20px;
+}
+
+.fip-docker-id {
+    margin-top: -10px;
+    padding-bottom: 20px;
+}
+
+.fip-ini-file {
+    margin-top: -10px;
+    padding-bottom: 10px;
+}
+
+.section-title i {
+    margin-right: 20px;
 }
 
 .fip-input-wrap {
@@ -169,8 +187,8 @@ html, body {
 
 .fip-scolllist {
     overflow: hidden;
-    overflow-y: scroll;
-    height: 600px;
+    overflow-y: auto;
+    height: 640px;
     padding-right: 15px;
 
 }

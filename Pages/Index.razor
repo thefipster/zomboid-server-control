@@ -1,20 +1,27 @@
 ﻿@page "/"
+
 @using System.Timers
+@using Docker.DotNet.Models;
 @using zomboid_server_control.Data
+
 @inject IJSRuntime JsRuntime
 @inject ServerConfigService ServerConfig
 @inject ModStorageService ModStorage
+@inject DockerInteropService DockerInterop
+@inject Microsoft.Extensions.Configuration.IConfiguration config
+
 <PageTitle>Zomboid Mod Loader</PageTitle>
 
 <div class="fip-card">
     <div class="fip-wrap">
         <div class="container">
             <span class="page-title">
-                Zomboid Mod Loader
+                Zomboid Mod Loader <span>@config["ZomboidPath"]</span>
             </span>
             <div class="row">
                 <div class="col-3">
-                    <span class="section-title"><i class="bi bi-plus-square"></i> Add Mod</span>
+                    <span class="section-title"><i class="bi bi-plus-square"></i> Add Mod <span class="fip-small">(@iniFile)</span></span>
+                    <div class="fip-ini-file"></div>
                     <div class="fip-input-wrap">
                         <label for"modids">Workshop Name</label>
                         <input type="text"
@@ -43,20 +50,20 @@
                         Add
                     </button>
                     <div class="new-section"></div>
-                    <span class="section-title"><i class="bi bi-hdd-stack"></i> Controls</span>
+                    <span class="section-title"><i class="bi bi-hdd-stack"></i> Controls <span class="fip-small">(@containerId / @containerState)</span></span>
                     <button class="fip-button" @onclick="onRestartClick">
                         @restartText
                     </button>
-                    <button class="fip-button fip-warning" @onclick="onResetClick">
+@*                    <button class="fip-button fip-warning" @onclick="onResetClick">
                         @resetText
-                    </button>
+                    </button>*@
                 </div>
                 <div class="col-1">
                 </div>
                 <div class="col">
-                    <span class="section-title"><i class="bi bi-collection"></i> Modlist</span>
+                    <span class="section-title"><i class="bi bi-collection"></i> @mods.Count active Mods</span>
                     <ul id="fip-mod-list" class="list-group list-group-flush fip-scolllist">
-                        @foreach (var mod in mods.OrderBy(x => x.Order))
+                        @foreach (var mod in mods)
                         {
                             <li class="list-group-item mod-item"
                             id="@mod.WorkshopId"
@@ -89,58 +96,69 @@
     string resetText = RESET_BTN_TEXT;
     string restartText = RESTART_BTN_TEXT;
 
+    string containerId = string.Empty;
+    string containerState = string.Empty;
+
+    string iniFile = string.Empty;
+
     string? modId;
     string? workshopId;
     string? modName;
 
-    static List<ModConfig> mods = new List<ModConfig>();
+    IList<ModConfig> mods = new List<ModConfig>();
     ConfirmTimer resetTimer = new ConfirmTimer(2000, 5);
     ConfirmTimer restartTimer = new ConfirmTimer(2000, 2);
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         mods = ModStorage.Read().ToList();
-        resetTimer.ThresholdReached += resetCallback;
-        restartTimer.ThresholdReached += restartCallback;
+        containerId = await DockerInterop.GetLinkedIdAsync(8);
+        containerState = await DockerInterop.GetLinkedStateAsync();
+        iniFile = ServerConfig.GetIniFilename();
+        resetTimer.ThresholdReached += resetCallbackAsync;
+        restartTimer.ThresholdReached += restartCallbackAsync;
+
+        StateHasChanged();
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
         if (firstRender)
         {
             var dotNetReference = DotNetObjectReference.Create(this);
-            JsRuntime.InvokeVoidAsync("interop.syncInstance", dotNetReference);
+            await JsRuntime.InvokeVoidAsync("interop.syncInstance", dotNetReference);
         }
+
     }
 
     [JSInvokable("syncMods")]
-    public Task SyncMods(ModConfig[] mods)
+    public void SyncMods(ModConfig[] reorderedMods)
     {
-        mods = mods.OrderBy(x => x.Order).ToArray();
-        for (int i = 0; i < mods.Count(); i++)
+        for (int i = 0; i < reorderedMods.Count(); i++)
         {
-            mods[i].Order = i;
+            var workshopId = reorderedMods[i].WorkshopId;
+            mods.First(x => x.WorkshopId == workshopId).Order = i;
         }
 
+        mods = mods.OrderBy(x => x.Order).ToList();
         ModStorage.Write(mods);
-        return Task.FromResult<int>(1337);
     }
 
-    private async Task onAddClick()
+    private void onAddClick()
     {
         mods.Add(new ModConfig(modId, workshopId, modName, mods.Count));
-        await SyncMods(mods.ToArray());
+        SyncMods(mods.ToArray());
         resetForm();
     }
 
-    private async Task onRemoveClick(string workshopId)
+    private void onRemoveClick(string workshopId)
     {
         var mod = mods.FirstOrDefault(x => x.WorkshopId == workshopId);
         if (mod != null)
             mods.Remove(mod);
 
-        await SyncMods(mods.ToArray());
+        SyncMods(mods.ToArray());
     }
 
     private void resetForm()
@@ -156,8 +174,9 @@
         restartTimer.Click();
     }
 
-    private async void restartCallback(object? sender, bool isConfirmed)
+    private async void restartCallbackAsync(object? sender, bool isConfirmed)
     {
+        restartTimer.Reset();
         await InvokeAsync(() =>
         {
             restartText = RESTART_BTN_TEXT;
@@ -165,12 +184,13 @@
         });
 
         if (isConfirmed)
-            restartServer();
+            await restartServerAsync();
     }
 
-    private void restartServer()
+    private async Task restartServerAsync()
     {
-
+        ServerConfig.SetMods(new ModCollection(mods));
+        await DockerInterop.RestartAsync();
     }
 
 
@@ -180,8 +200,9 @@
         resetTimer.Click();
     }
 
-    private async void resetCallback(object? sender, bool isConfirmed)
+    private async void resetCallbackAsync(object? sender, bool isConfirmed)
     {
+        resetTimer.Reset();
         await InvokeAsync(() =>
         {
             resetText = RESET_BTN_TEXT;
