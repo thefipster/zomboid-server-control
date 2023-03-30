@@ -1,0 +1,200 @@
+﻿@page "/"
+@using System.Timers
+@using zomboid_server_control.Data
+@inject IJSRuntime JsRuntime
+@inject ServerConfigService ServerConfig
+@inject ModStorageService ModStorage
+<PageTitle>Zomboid Mod Loader</PageTitle>
+
+<div class="fip-card">
+    <div class="fip-wrap">
+        <div class="container">
+            <span class="page-title">
+                Zomboid Mod Loader
+            </span>
+            <div class="row">
+                <div class="col-3">
+                    <span class="section-title"><i class="bi bi-plus-square"></i> Add Mod</span>
+                    <div class="fip-input-wrap">
+                        <label for"modids">Workshop Name</label>
+                        <input type="text"
+                               placeholder="Brita's weapons pack"
+                               name="name"
+                               value="@modName"
+                               @oninput="(e) => modName = e.Value?.ToString()">
+                    </div>
+                    <div class="fip-input-wrap">
+                        <label for"workshopids">Workshop Item</label>
+                        <input type="text"
+                               placeholder="123456789"
+                               name="workshopitem"
+                               value="@workshopId"
+                               @oninput="(e) => workshopId =  e.Value?.ToString()">
+                    </div>
+                    <div class="fip-input-wrap">
+                        <label for"workshopids">Mod ID</label>
+                        <input type="text"
+                               placeholder="brita"
+                               name="modid"
+                               value="@modId"
+                               @oninput="(e) => modId =  e.Value?.ToString()">
+                    </div>
+                    <button class="fip-button" @onclick="onAddClick">
+                        Add
+                    </button>
+                    <div class="new-section"></div>
+                    <span class="section-title"><i class="bi bi-hdd-stack"></i> Controls</span>
+                    <button class="fip-button" @onclick="onRestartClick">
+                        @restartText
+                    </button>
+                    <button class="fip-button fip-warning" @onclick="onResetClick">
+                        @resetText
+                    </button>
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col">
+                    <span class="section-title"><i class="bi bi-collection"></i> Modlist</span>
+                    <ul id="fip-mod-list" class="list-group list-group-flush fip-scolllist">
+                        @foreach (var mod in mods.OrderBy(x => x.Order))
+                        {
+                            <li class="list-group-item mod-item"
+                            id="@mod.WorkshopId"
+                            data-fip-modid="@mod.Id"
+                            data-fip-modname="@mod.Name">
+                                <i class="bi bi-arrow-down-up handle"></i>
+                                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=@mod.WorkshopId" target="_blank">
+                                    <i class="bi bi-steam"></i>
+                                </a>
+                                <span class="fip-mod-item">@mod.Name <span class="fip-smaller">(@mod.WorkshopId / @mod.Id)</span></span>
+                                <span class="fill"></span>
+                                <button class="fip-icon-button fip-warning" @onclick="() => onRemoveClick(mod.WorkshopId)">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code
+{
+    const string RESET_BTN_TEXT = "Reset";
+    const string RESTART_BTN_TEXT = "Restart";
+
+    string resetText = RESET_BTN_TEXT;
+    string restartText = RESTART_BTN_TEXT;
+
+    string? modId;
+    string? workshopId;
+    string? modName;
+
+    static List<ModConfig> mods = new List<ModConfig>();
+    ConfirmTimer resetTimer = new ConfirmTimer(2000, 5);
+    ConfirmTimer restartTimer = new ConfirmTimer(2000, 2);
+
+    protected override void OnInitialized()
+    {
+        mods = ModStorage.Read().ToList();
+        resetTimer.ThresholdReached += resetCallback;
+        restartTimer.ThresholdReached += restartCallback;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            var dotNetReference = DotNetObjectReference.Create(this);
+            JsRuntime.InvokeVoidAsync("interop.syncInstance", dotNetReference);
+        }
+    }
+
+    [JSInvokable("syncMods")]
+    public Task SyncMods(ModConfig[] mods)
+    {
+        mods = mods.OrderBy(x => x.Order).ToArray();
+        for (int i = 0; i < mods.Count(); i++)
+        {
+            mods[i].Order = i;
+        }
+
+        ModStorage.Write(mods);
+        return Task.FromResult<int>(1337);
+    }
+
+    private async Task onAddClick()
+    {
+        mods.Add(new ModConfig(modId, workshopId, modName, mods.Count));
+        await SyncMods(mods.ToArray());
+        resetForm();
+    }
+
+    private async Task onRemoveClick(string workshopId)
+    {
+        var mod = mods.FirstOrDefault(x => x.WorkshopId == workshopId);
+        if (mod != null)
+            mods.Remove(mod);
+
+        await SyncMods(mods.ToArray());
+    }
+
+    private void resetForm()
+    {
+        modId = string.Empty;
+        workshopId = string.Empty;
+        modName = string.Empty;
+    }
+
+    private void onRestartClick()
+    {
+        restartText = $"Corfirm {restartTimer.ClicksLeft}x";
+        restartTimer.Click();
+    }
+
+    private async void restartCallback(object? sender, bool isConfirmed)
+    {
+        await InvokeAsync(() =>
+        {
+            restartText = RESTART_BTN_TEXT;
+            StateHasChanged();
+        });
+
+        if (isConfirmed)
+            restartServer();
+    }
+
+    private void restartServer()
+    {
+
+    }
+
+
+    private void onResetClick()
+    {
+        resetText = $"Corfirm {resetTimer.ClicksLeft}x";
+        resetTimer.Click();
+    }
+
+    private async void resetCallback(object? sender, bool isConfirmed)
+    {
+        await InvokeAsync(() =>
+        {
+            resetText = RESET_BTN_TEXT;
+            StateHasChanged();
+        });
+
+        if (isConfirmed)
+            resetServer();
+
+    }
+
+    private void resetServer()
+    {
+
+    }
+}
