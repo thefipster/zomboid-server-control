@@ -20,6 +20,10 @@
             Order = order;
         }
 
+        public ModConfig(ModFormData formData, int order)
+            : this(formData.ModId, formData.WorkshopId, formData.ModName, order)
+        { }
+
         public int Order { get; set; }
         public string WorkshopId { get; set; }
         public string Id { get; set; }

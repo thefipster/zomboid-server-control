@@ -1,5 +1,7 @@
 ﻿using Docker.DotNet;
 using Docker.DotNet.Models;
+using Microsoft.Extensions.Configuration.CommandLine;
+using System.Text;
 
 namespace zomboid_server_control.Data
 {
@@ -27,6 +29,23 @@ namespace zomboid_server_control.Data
             {
                 WaitBeforeKillSeconds = 30
             });
+        }
+
+        public async Task<string> GetLogsAsync(int lines)
+        {
+            var container = await GetLinkedIdAsync();
+            if (string.IsNullOrWhiteSpace(container))
+                throw new Exception("Couldn't find enabled container.");
+
+            var stream = await client.Containers.GetContainerLogsAsync(container, false, new ContainerLogsParameters
+            {
+                Timestamps = true,
+                Tail = lines.ToString(),
+                ShowStdout = true
+            });
+
+            (string stdout, string _) = await stream.ReadOutputToEndAsync(new CancellationToken());
+            return stdout;
         }
 
         public async Task<string> GetLinkedIdAsync(int? resultLength = null)

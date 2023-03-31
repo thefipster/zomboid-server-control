@@ -82,7 +82,7 @@ html, body {
 }
 
 .new-section {
-    height: 40px;
+    height: 100px;
 }
 
 .section-title {
@@ -90,11 +90,6 @@ html, body {
     font-size: 20px;
     color: #f7dcff;
     line-height: 1.2;
-    padding-bottom: 20px;
-}
-
-.fip-docker-id {
-    margin-top: -10px;
     padding-bottom: 20px;
 }
 
@@ -145,16 +140,23 @@ html, body {
     transition: 0.3s;
 }
 
+    .fip-button:disabled,
+    .fip-button[disabled] {
+        border: 1px solid #999999;
+        background-color: rgba(255,255,255,0.4);
+        cursor: not-allowed;
+    }
+
     .fip-button.fip-warning {
         background-color: rgba(255, 0, 0, 0.5);
     }
 
-    .fip-button:hover {
+    .fip-button:hover:enabled {
         background-color: #6A3FBE;
         transition: 0.3s;
     }
 
-    .fip-button.fip-warning:hover {
+    .fip-button.fip-warning:hover:enabled {
         background-color: red;
         transition: 0.3s;
     }
@@ -168,7 +170,8 @@ html, body {
 }
 
     .fip-icon-button.fip-warning {
-        color: darkred;
+        transition: 0.3s;
+        color: #ddd;
     }
 
         .fip-icon-button.fip-warning:hover {
@@ -185,22 +188,41 @@ html, body {
     flex-grow: 4;
 }
 
+#fip-log-list {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
 .fip-scolllist {
     overflow: hidden;
     overflow-y: auto;
-    height: 640px;
+    height: 600px;
     padding-right: 15px;
+}
 
+.fip-scolllist-small {
+    overflow: hidden;
+    overflow-y: auto;
+    height: 513px;
+    padding-right: 15px;
+}
+
+.fip-drag {
+    cursor: move;
+}
+
+#fip-logs {
+    display: none;
 }
 
 ::-webkit-scrollbar {
     width: 5px;
 }
 ::-webkit-scrollbar-track {
-    background: #e4a9ff;
+    background: #555;
 }
 ::-webkit-scrollbar-thumb {
-    background: #555;
+    background: #e4a9ff;
 }
     ::-webkit-scrollbar-thumb:hover {
         background: #6A3FBE;
@@ -213,22 +235,20 @@ html, body {
     color: unset;
     border: 1px solid rgba(228, 169, 255, 0.6);
     padding: 0.5rem 0.3rem;
+    transition: 0.3s;
 }
 
     .list-group-item:hover {
         background-color: rgba(228, 169, 255, 0.1);
     }
 
-    .list-group-item i {
-        margin-right: 30px;
-    }
-
     .list-group-item a {
-        margin-right: 10px;
+        margin-right: 20px;
     }
 
 a {
     color: #ddd;
+    transition: 0.3s;
 }
 
     a:hover {

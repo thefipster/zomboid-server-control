@@ -10,8 +10,8 @@ namespace zomboid_server_control.Data
 
         System.Timers.Timer timer;
 
-        public delegate void ThresholdReachedEventHandler(object sender, bool isConfirmed);
-        public event ThresholdReachedEventHandler ThresholdReached;
+        public delegate Task ResultReachedEventHandler(object sender, bool isConfirmed);
+        public event ResultReachedEventHandler ResultReached;
 
         public ConfirmTimer(int windowMs, int limit)
         {
@@ -61,7 +61,7 @@ namespace zomboid_server_control.Data
 
         private void invoke(bool isConfirmed)
         {
-            ThresholdReached?.Invoke(this, isConfirmed);
+            ResultReached?.Invoke(this, isConfirmed);
             clicks = 0;
         }
     }
