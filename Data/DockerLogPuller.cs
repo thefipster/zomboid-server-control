@@ -25,7 +25,7 @@ namespace TheFipster.Zomboid.ServerControl.Data
 
         private async void PullLogs(object? sender, ElapsedEventArgs e)
         {
-            var logs = await interop.GetLogsAsync(100);
+            var logs = await interop.GetLogsAsync(50);
             var lines = logs.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             LogsPulled?.Invoke(this, lines);
         }

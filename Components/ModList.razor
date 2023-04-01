@@ -49,8 +49,16 @@
         ModStorage.Write(Mods);
     }
 
-    public void AddMod(ModConfig mod)
+    private bool validate(ModConfig mod) => Mods.All(x => x.WorkshopId != mod.WorkshopId);
+
+    public async Task AddModAsync(ModConfig mod)
     {
+        if (!validate(mod))
+        {
+            await JsRuntime.InvokeVoidAsync("interop.alert", "Workshop item is already in the list.");
+            return;
+        }
+
         mod.Order = Mods.Count;
         Mods.Add(mod);
         ModStorage.Write(Mods);

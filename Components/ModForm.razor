@@ -1,4 +1,7 @@
-﻿@using TheFipster.Zomboid.ServerControl.Data;
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using TheFipster.Zomboid.ServerControl.Data;
+
+@inject IJSRuntime JsRuntime
 
 <div id="fip-mod-form">
     <h2>
@@ -6,45 +9,57 @@
         Add Mod
     </h2>
 
-    <div class="fip-input-wrap">
-        <label for"modids">Workshop Name</label>
-        <input type="text"
-               placeholder="Brita's weapons pack"
-               name="name"
-               value="@formData.ModName"
-               @oninput="(e) => formData.ModName = e.Value?.ToString()">
-    </div>
+    <EditForm Model="@formData" OnValidSubmit="@formSubmit">
+        <DataAnnotationsValidator />
 
-    <div class="fip-input-wrap">
-        <label for"workshopids">Workshop Item</label>
-        <input type="text"
-               placeholder="123456789"
-               name="workshopitem"
-               value="@formData.WorkshopId"
-               @oninput="(e) => formData.WorkshopId = e.Value?.ToString()">
-    </div>
+        <div class="fip-input-wrap">
+            <label for"modids">Workshop Name</label>
+            <InputText id="modName"
+                       placeholder="Brita's weapons pack"
+                       name="modName"
+                       @bind-Value="formData.ModName" />
+        </div>
 
-    <div class="fip-input-wrap">
-        <label for"workshopids">Mod ID</label>
-        <input type="text"
-               placeholder="brita"
-               name="modid"
-               value="@formData.ModId"
-               @oninput="(e) => formData.ModId = e.Value?.ToString()">
-    </div>
+        <div class="fip-input-wrap">
+            <label for"workshopids">Workshop Item</label>
+            <InputText id="workshopitem"
+                       placeholder="123456789"
+                       name="workshopitem"
+                       @bind-Value="formData.WorkshopId" />
+        </div>
 
-    <button id="add-btn" class="fip-button" @onclick="onAddClick">
-        Add
-    </button>
+        <div class="fip-input-wrap">
+            <label for"workshopids">Mod ID</label>
+            <InputText id="modid"
+                       placeholder="brita"
+                       name="modid"
+                       @bind-Value="formData.ModId" />
+        </div>
+
+        <button id="add-btn" type="submit" class="fip-button">
+            Add
+        </button>
+
+        <ValidationSummary />
+    </EditForm>
 </div>
 
 @code {
     [Parameter]
     public EventCallback<ModConfig> OnModAdded { get; set; }
 
-    private ModFormData formData = new ModFormData();
+    private ModFormData formData = new();
 
-    private async Task onAddClick()
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("interop.focusForm");
+        }
+    }
+
+    private async Task formSubmit()
     {
         var mod = new ModConfig(formData);
         formData.Reset();

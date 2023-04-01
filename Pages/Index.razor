@@ -1,7 +1,5 @@
 ﻿@page "/"
 
-@using System.Timers
-@using Docker.DotNet.Models;
 @using TheFipster.Zomboid.ServerControl.Data
 @using TheFipster.Zomboid.ServerControl.Components
 
@@ -9,34 +7,24 @@
 @inject ServerConfigService ServerConfig
 @inject DockerInteropService DockerInterop
 
-<PageTitle>Zomboid Mod Loader</PageTitle>
-
-<div class="fip-content">
-    <div class="fip-layer">
-        <PageHeadline />
-        <div class="fip-container">
-            <div class="fip-sidebar">
-                <ModForm OnModAdded="addMod" />
-                <ServerControls OnRestartConfirmed="restartConfirmedAsync" />
-            </div>
-            <ModList @ref="modlist" />
-            <LogList @ref="loglist" />
-        </div>
-    </div>
+<div class="fip-sidebar">
+    <ModForm OnModAdded="addModAsync" />
+    <ServerControls OnRestartConfirmed="restartConfirmedAsync" />
 </div>
+<ModList @ref="modlist" />
+<LogList @ref="loglist" />
 
 @code
 {
     ModList? modlist;
     LogList? loglist;
 
-    private Task addMod(ModConfig mod)
+    private async Task addModAsync(ModConfig mod)
     {
         if (modlist == null)
-            return Task.CompletedTask;
+            return;
 
-        modlist.AddMod(mod);
-        return Task.CompletedTask;
+        await modlist.AddModAsync(mod);
     }
 
     private async Task restartConfirmedAsync()

@@ -5,36 +5,31 @@
 @inject ServerConfigService ServerConfig
 @inject DockerInteropService DockerInterop
 
-<div id="fip-controls">
-    <h2>
-        <i class="bi bi-hdd-stack"></i>
-        Controls
-    </h2>
-
-    @if (dockerOnline && containerFound && containerState == "running")
-    {
-        <button id="restart-btn" class="fip-button" @onclick="onRestartClick">
-            @btnText
-        </button>
-    }
-    else
-    {
-        <button disabled id="restart-btn" class="fip-button" @onclick="onRestartClick">
-            @btnText
-        </button>
-    }
-
-
+<div id="fip-status-bar">
+    <span title="Active configuration file">
+        <i class="fa-solid fa-file-code"></i>
+        @iniFile
+    </span>
+    <span title="Status of the Docker Daemon">
+        <i class="fa-brands fa-docker"></i>
+        @dockerStatus
+    </span>
+    <span title="Linked Zomboid Game Container">
+        <i class="fa-solid fa-microchip"></i>
+        @containerId
+    </span>
+    <span title="State of the Container">
+        <i class="fa-solid fa-server"></i>
+        @containerState
+    </span>
+    <span title="Status of the Container">
+        <i class="fa-solid fa-stopwatch"></i>
+        @containerStatus
+    </span>
 </div>
 
 @code {
-    [Parameter]
-    public EventCallback OnRestartConfirmed { get; set; }
-
-    const string DefaultText = "Restart";
-    string btnText = DefaultText;
-    ConfirmTimer timer = new ConfirmTimer(2000, 2);
-    Timer pingTimer = new Timer(1000);
+    Timer timer = new Timer(1000);
 
     bool firstPing = false;
     bool dockerOnline = false;
@@ -47,28 +42,8 @@
 
     protected override void OnInitialized()
     {
-        timer.ResultReached += onRestartTriggerAsync;
-        pingTimer.Elapsed += pingDocker;
-        pingTimer.Start();
-    }
-
-    private void onRestartClick()
-    {
-        btnText = $"Click again {timer.ClicksLeft}x";
-        timer.Click();
-    }
-
-    private async Task onRestartTriggerAsync(object? sender, bool isConfirmed)
-    {
-        timer.Reset();
-        await InvokeAsync(() =>
-        {
-            btnText = DefaultText;
-            StateHasChanged();
-        });
-
-        if (isConfirmed)
-            await OnRestartConfirmed.InvokeAsync();
+        timer.Elapsed += pingDocker;
+        timer.Start();
     }
 
     private async void pingDocker(object? sender, ElapsedEventArgs e)

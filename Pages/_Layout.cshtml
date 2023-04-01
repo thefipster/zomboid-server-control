@@ -1,4 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
+@using TheFipster.Zomboid.ServerControl.Components
+
 @namespace TheFipster.Zomboid.ServerControl.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -8,10 +10,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <title>Zomboid Mod Loader</title>
+
     <base href="~/" />
 
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/poppins" >
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
     <link rel="stylesheet" href="css/site.css" />
     <link rel="stylesheet" href="css/shared.css" />
@@ -23,11 +29,17 @@
     <link rel="stylesheet" href="css/links.css" />
     <link rel="stylesheet" href="css/titles.css" />
     <link rel="stylesheet" href="css/loader.css" />
-
-    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 <body>
-    @RenderBody()
+    <div class="fip-content">
+        <div class="fip-layer">
+            <component type="typeof(PageHeadline)" render-mode="ServerPrerendered" />
+            <div class="fip-container">
+                @RenderBody()
+            </div>
+            <component type="typeof(StatusBar)" render-mode="ServerPrerendered" />
+        </div>
+    </div>
 
     <div id="blazor-error-ui">
         <environment include="Staging,Production">

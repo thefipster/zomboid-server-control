@@ -4,9 +4,9 @@ var scrollTimer;
 
 interop.readMods = function () {
     const items = document.querySelectorAll(".mod-item");
-    let mods = [];
+    const mods = [];
     for (const mod of items) {
-        let modObj = {
+        const modObj = {
             workshopId: mod.id,
             name: mod.dataset.fipModname,
             id: mod.dataset.fipModid
@@ -26,7 +26,7 @@ interop.syncInstance = function (dotNetObject) {
 interop.onAfterRender = function () {
     const modList = document.getElementById('fip-mod-list');
 
-    if (modList) 
+    if (modList)
         new Sortable(modList, {
             animation: 150,
             onUpdate: function (evt) {
@@ -42,7 +42,7 @@ interop.showLogs = function () {
     document.getElementById("restart-btn").disabled = true;
 
     scrollTimer = window.setInterval(function () {
-        var elem = document.getElementById('fip-log-list');
+        const elem = document.getElementById('fip-log-list');
         elem.scrollTop = elem.scrollHeight;
     }, 1000);
 };
@@ -56,3 +56,11 @@ interop.showMods = function () {
     window.clearInterval(scrollTimer);
 };
 
+interop.alert = function (message) {
+    alert(message);
+};
+
+interop.focusForm = function () {
+    const element = document.getElementById('modName');
+    element.focus();
+};
