@@ -1,4 +1,4 @@
-﻿namespace zomboid_server_control.Data
+﻿namespace TheFipster.Zomboid.ServerControl.Data
 {
     public class ModFormData
     {
@@ -14,5 +14,10 @@
             ModName = string.Empty;
             WorkshopId = string.Empty;
         }
+
+        public bool Valid => 
+            !string.IsNullOrWhiteSpace(ModId) 
+            && !string.IsNullOrWhiteSpace(ModName) 
+            && !string.IsNullOrWhiteSpace(WorkshopId);
     }
 }

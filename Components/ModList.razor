@@ -1,0 +1,77 @@
+﻿@using TheFipster.Zomboid.ServerControl.Data;
+
+@inject ModStorageService ModStorage
+@inject IJSRuntime JsRuntime
+
+<div id="fip-mods">
+    <h2><i class="bi bi-collection"></i> @Mods.Count active Mods <span class="fip-smaller">(drag and drop to change the order in which the mods are loaded)</span></h2>
+    <ul id="fip-mod-list" class="fip-scolllist">
+        @foreach (var mod in Mods)
+        {
+            <li class="mod-item fip-drag"
+                id="@mod.WorkshopId"
+                data-fip-modid="@mod.Id"
+                data-fip-modname="@mod.Name">
+                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=@mod.WorkshopId" title="Open in steam workshop" target="_blank">
+                    <i class="bi bi-steam"></i>
+                </a>
+                <span class="fip-mod-item">@mod.Name <span class="fip-smaller">(@mod.WorkshopId / @mod.Id)</span></span>
+                <button class="fip-icon-button fip-warning" title="remove" @onclick="() => onRemoveClick(mod.WorkshopId)">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    public IList<ModConfig> Mods { get; set; } = new List<ModConfig>();
+
+    protected override void OnInitialized()
+        => Mods = ModStorage.Read().ToList();
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            var dotNetReference = DotNetObjectReference.Create(this);
+            await JsRuntime.InvokeVoidAsync("interop.syncInstance", dotNetReference);
+            await JsRuntime.InvokeVoidAsync("interop.onAfterRender");
+        }
+    }
+
+    [JSInvokable("syncMods")]
+    public void SyncMods(ModConfig[] reorderedMods)
+    {
+        syncModOrder(reorderedMods);
+        Mods = Mods.OrderBy(x => x.Order).ToList();
+        ModStorage.Write(Mods);
+    }
+
+    public void AddMod(ModConfig mod)
+    {
+        mod.Order = Mods.Count;
+        Mods.Add(mod);
+        ModStorage.Write(Mods);
+        StateHasChanged();
+    }
+
+    private void onRemoveClick(string workshopId)
+    {
+        var mod = Mods.FirstOrDefault(x => x.WorkshopId == workshopId);
+        if (mod != null)
+            Mods.Remove(mod);
+
+        ModStorage.Write(Mods);
+    }
+
+    private void syncModOrder(ModConfig[] reorderedMods)
+    {
+        for (int i = 0; i < reorderedMods.Count(); i++)
+        {
+            var workshopId = reorderedMods[i].WorkshopId;
+            Mods.First(x => x.WorkshopId == workshopId).Order = i;
+        }
+    }
+}

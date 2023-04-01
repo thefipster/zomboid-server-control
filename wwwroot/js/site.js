@@ -1,7 +1,8 @@
 ﻿var interop = interop || {};
 var syncObj = {};
+var scrollTimer;
 
-function readMods() {
+interop.readMods = function () {
     const items = document.querySelectorAll(".mod-item");
     let mods = [];
     for (const mod of items) {
@@ -12,24 +13,10 @@ function readMods() {
         }
 
         mods.push(modObj);
-        console.log(modObj);
     }
 
-    syncObj.invokeMethodAsync('syncMods', mods);
-}
-
-function showLogs() {
-    document.getElementById("fip-logs").style.display = "block";
-    document.getElementById("fip-mods").style.display = "none";
-    document.getElementById("add-btn").disabled = true;
-    document.getElementById("restart-btn").disabled = true;
-}
-
-function showMods() {
-    document.getElementById("fip-logs").style.display = "none";
-    document.getElementById("fip-mods").style.display = "block";
-    document.getElementById("add-btn").disabled = false;
-    document.getElementById("restart-btn").disabled = false;
+    if (mods.length > 0)
+        syncObj.invokeMethodAsync('syncMods', mods);
 }
 
 interop.syncInstance = function (dotNetObject) {
@@ -38,18 +25,34 @@ interop.syncInstance = function (dotNetObject) {
 
 interop.onAfterRender = function () {
     const modList = document.getElementById('fip-mod-list');
-    new Sortable(modList, {
-        animation: 150,
-        onUpdate: function (evt) {
-            readMods();
-        }
-    });
+
+    if (modList) 
+        new Sortable(modList, {
+            animation: 150,
+            onUpdate: function (evt) {
+                interop.readMods();
+            }
+        });
 };
 
 interop.showLogs = function () {
-    showLogs();
+    document.getElementById("fip-logs").style.display = "block";
+    document.getElementById("fip-mods").style.display = "none";
+    document.getElementById("add-btn").disabled = true;
+    document.getElementById("restart-btn").disabled = true;
+
+    scrollTimer = window.setInterval(function () {
+        var elem = document.getElementById('fip-log-list');
+        elem.scrollTop = elem.scrollHeight;
+    }, 1000);
 };
 
 interop.showMods = function () {
-    showMods();
+    document.getElementById("fip-logs").style.display = "none";
+    document.getElementById("fip-mods").style.display = "block";
+    document.getElementById("add-btn").disabled = false;
+    document.getElementById("restart-btn").disabled = false;
+
+    window.clearInterval(scrollTimer);
 };
+

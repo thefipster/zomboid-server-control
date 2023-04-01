@@ -1,0 +1,53 @@
+﻿@using TheFipster.Zomboid.ServerControl.Data;
+
+<div id="fip-mod-form">
+    <h2>
+        <i class="bi bi-plus-square"></i>
+        Add Mod
+    </h2>
+
+    <div class="fip-input-wrap">
+        <label for"modids">Workshop Name</label>
+        <input type="text"
+               placeholder="Brita's weapons pack"
+               name="name"
+               value="@formData.ModName"
+               @oninput="(e) => formData.ModName = e.Value?.ToString()">
+    </div>
+
+    <div class="fip-input-wrap">
+        <label for"workshopids">Workshop Item</label>
+        <input type="text"
+               placeholder="123456789"
+               name="workshopitem"
+               value="@formData.WorkshopId"
+               @oninput="(e) => formData.WorkshopId = e.Value?.ToString()">
+    </div>
+
+    <div class="fip-input-wrap">
+        <label for"workshopids">Mod ID</label>
+        <input type="text"
+               placeholder="brita"
+               name="modid"
+               value="@formData.ModId"
+               @oninput="(e) => formData.ModId = e.Value?.ToString()">
+    </div>
+
+    <button id="add-btn" class="fip-button" @onclick="onAddClick">
+        Add
+    </button>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<ModConfig> OnModAdded { get; set; }
+
+    private ModFormData formData = new ModFormData();
+
+    private async Task onAddClick()
+    {
+        var mod = new ModConfig(formData);
+        formData.Reset();
+        await OnModAdded.InvokeAsync(mod);
+    }
+}

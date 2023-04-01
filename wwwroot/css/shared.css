@@ -1,0 +1,11 @@
+﻿.fip-smaller {
+    font-size: 0.8rem;
+}
+
+.fill {
+    flex-grow: 4;
+}
+
+.fip-center {
+    text-align: center;
+}

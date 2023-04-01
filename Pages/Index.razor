@@ -2,245 +2,51 @@
 
 @using System.Timers
 @using Docker.DotNet.Models;
-@using zomboid_server_control.Data
+@using TheFipster.Zomboid.ServerControl.Data
+@using TheFipster.Zomboid.ServerControl.Components
 
 @inject IJSRuntime JsRuntime
 @inject ServerConfigService ServerConfig
-@inject ModStorageService ModStorage
 @inject DockerInteropService DockerInterop
-@inject Microsoft.Extensions.Configuration.IConfiguration config
 
 <PageTitle>Zomboid Mod Loader</PageTitle>
 
-<div class="fip-card">
-    <div class="fip-wrap">
-        <div class="fip-overlay">
-        </div>
-        <div class="container">
-            <span class="page-title">
-                Zomboid Mod Loader <span>@config["ZomboidPath"]</span>
-            </span>
-            <div class="row">
-                <div class="col-3">
-                    <span class="section-title"><i class="bi bi-plus-square"></i> Add Mod <span class="fip-small">(@iniFile)</span></span>
-                    <div class="fip-ini-file"></div>
-                    <div class="fip-input-wrap">
-                        <label for"modids">Workshop Name</label>
-                        <input type="text"
-                               placeholder="Brita's weapons pack"
-                               name="name"
-                               value="@formData.ModName"
-                               @oninput="(e) => formData.ModName = e.Value?.ToString()">
-                    </div>
-                    <div class="fip-input-wrap">
-                        <label for"workshopids">Workshop Item</label>
-                        <input type="text"
-                               placeholder="123456789"
-                               name="workshopitem"
-                               value="@formData.WorkshopId"
-                               @oninput="(e) => formData.WorkshopId =  e.Value?.ToString()">
-                    </div>
-                    <div class="fip-input-wrap">
-                        <label for"workshopids">Mod ID</label>
-                        <input type="text"
-                               placeholder="brita"
-                               name="modid"
-                               value="@formData.ModId"
-                               @oninput="(e) => formData.ModId =  e.Value?.ToString()">
-                    </div>
-                    <button id="add-btn" class="fip-button" @onclick="onAddClick">
-                        Add
-                    </button>
-                    <div class="new-section"></div>
-                    <span class="section-title"><i class="bi bi-hdd-stack"></i> Controls <span class="fip-small">(@containerId / @containerState)</span></span>
-                    <button id="restart-btn" class="fip-button" @onclick="onRestartClick">
-                        @restartText
-                    </button>
-                </div>
-                <div class="col-1">
-                </div>
-                <div id="fip-mods" class="col">
-                    <span class="section-title"><i class="bi bi-collection"></i> @mods.Count active Mods <span class="fip-small">(drag and drop to change the order in which the mods are loaded)</span></span>
-                    <ul id="fip-mod-list" class="list-group list-group-flush fip-scolllist">
-                        @foreach (var mod in mods)
-                        {
-                            <li class="list-group-item mod-item fip-drag"
-                                id="@mod.WorkshopId"
-                                data-fip-modid="@mod.Id"
-                                data-fip-modname="@mod.Name">
-                                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=@mod.WorkshopId" title="Open in steam workshop" target="_blank">
-                                    <i class="bi bi-steam"></i>
-                                </a>
-                                <span class="fip-mod-item">@mod.Name <span class="fip-smaller">(@mod.WorkshopId / @mod.Id)</span></span>
-                                <span class="fill"></span>
-                                <button class="fip-icon-button fip-warning" title="remove" @onclick="() => onRemoveClick(mod.WorkshopId)">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
-                            </li>
-                        }
-                    </ul>
-                </div>
-                <div id="fip-logs" class="col">
-                    <span class="section-title"><i class="bi bi-list"></i> Server logs</span>
-                    <ul id="fip-log-list" class="list-group list-group-flush fip-scolllist-small">
-                        @foreach (var log in logs)
-                        {
-                            <li class="list-group-item">
-                                @log
-                            </li>
-                        }
-                    </ul>
-                    <button id="showmods-btn" class="fip-button" @onclick="() => onShowModsClickAsync()">
-                        Looks good, back please
-                    </button>
-                </div>
+<div class="fip-content">
+    <div class="fip-layer">
+        <PageHeadline />
+        <div class="fip-container">
+            <div class="fip-sidebar">
+                <ModForm OnModAdded="addMod" />
+                <ServerControls OnRestartConfirmed="restartConfirmedAsync" />
             </div>
+            <ModList @ref="modlist" />
+            <LogList @ref="loglist" />
         </div>
     </div>
 </div>
 
-
 @code
 {
-    const string RESET_BTN_TEXT = "Reset";
-    const string RESTART_BTN_TEXT = "Restart";
+    ModList? modlist;
+    LogList? loglist;
 
-    string resetText = RESET_BTN_TEXT;
-    string restartText = RESTART_BTN_TEXT;
-
-    string containerId = string.Empty;
-    string containerState = string.Empty;
-
-    string iniFile = string.Empty;
-
-    string[] logs = { "Zomboid Container is restarting. It might take a bit until I can connect and receive logs." };
-
-    ModFormData formData = new ModFormData();
-
-    IList<ModConfig> mods = new List<ModConfig>();
-    ConfirmTimer resetTimer = new ConfirmTimer(2000, 5);
-    ConfirmTimer restartTimer = new ConfirmTimer(2000, 2);
-
-    DockerLogPuller logPuller;
-
-    protected override async void OnInitialized()
+    private Task addMod(ModConfig mod)
     {
-        mods = ModStorage.Read().ToList();
-        containerId = await DockerInterop.GetLinkedIdAsync(8);
-        containerState = await DockerInterop.GetLinkedStateAsync();
-        iniFile = ServerConfig.GetIniFilename();
-        resetTimer.ResultReached += onResetTriggerAsync;
-        restartTimer.ResultReached += onRestartTriggerAsync;
+        if (modlist == null)
+            return Task.CompletedTask;
 
-        logPuller = new DockerLogPuller(DockerInterop);
-        logPuller.LogsPulled += onLogsPulledAsync;
-
-        StateHasChanged();
+        modlist.AddMod(mod);
+        return Task.CompletedTask;
     }
 
-    protected override async void OnAfterRender(bool firstRender)
+    private async Task restartConfirmedAsync()
     {
-        base.OnAfterRender(firstRender);
-        if (firstRender)
-        {
-            var dotNetReference = DotNetObjectReference.Create(this);
-            await JsRuntime.InvokeVoidAsync("interop.syncInstance", dotNetReference);
-            await JsRuntime.InvokeVoidAsync("interop.onAfterRender");
-        }
-    }
+        if (modlist == null || loglist == null)
+            return;
 
-    [JSInvokable("syncMods")]
-    public void OnSyncMods(ModConfig[] reorderedMods)
-    {
-        for (int i = 0; i < reorderedMods.Count(); i++)
-        {
-            var workshopId = reorderedMods[i].WorkshopId;
-            mods.First(x => x.WorkshopId == workshopId).Order = i;
-        }
-
-        mods = mods.OrderBy(x => x.Order).ToList();
-        ModStorage.Write(mods);
-    }
-
-    private void onAddClick()
-    {
-        mods.Add(new ModConfig(formData, mods.Count));
-        OnSyncMods(mods.ToArray());
-        formData.Reset();
-    }
-
-    private void onRemoveClick(string workshopId)
-    {
-        var mod = mods.FirstOrDefault(x => x.WorkshopId == workshopId);
-        if (mod != null)
-            mods.Remove(mod);
-
-        OnSyncMods(mods.ToArray());
-    }
-
-    private void onRestartClick()
-    {
-        restartText = $"Click again {restartTimer.ClicksLeft}x";
-        restartTimer.Click();
-    }
-
-    private async Task onRestartTriggerAsync(object? sender, bool isConfirmed)
-    {
-        restartTimer.Reset();
-        await InvokeAsync(() =>
-        {
-            restartText = RESTART_BTN_TEXT;
-            StateHasChanged();
-        });
-
-        if (isConfirmed)
-            await restartServerAsync();
-    }
-
-    private async Task restartServerAsync()
-    {
         await JsRuntime.InvokeVoidAsync("interop.showLogs");
-        ServerConfig.SetMods(new ModCollection(mods));
+        ServerConfig.SetMods(new ModCollection(modlist.Mods));
         await DockerInterop.RestartAsync();
-        logPuller.Start();
-    }
-
-    private async Task onLogsPulledAsync(object sender, string[] logs)
-    {
-        await InvokeAsync(async () =>
-        {
-            if (logs.Any())
-                this.logs = logs;
-
-            StateHasChanged();
-
-            if (logs.Any(x => x.Contains("Zomboid Steam Server started")))
-                await onShowModsClickAsync();
-        });
-    }
-
-    private async Task onShowModsClickAsync()
-    {
-        logPuller.Stop();
-        await JsRuntime.InvokeVoidAsync("interop.showMods");
-        string[] logs = { "Zomboid Container is restarting. It might take a bit until logs can be received." };
-    }
-
-    private void onResetClick()
-    {
-        resetText = $"Click again {resetTimer.ClicksLeft}x";
-        resetTimer.Click();
-    }
-
-    private async Task onResetTriggerAsync(object? sender, bool isConfirmed)
-    {
-        resetTimer.Reset();
-        await InvokeAsync(() =>
-        {
-            resetText = RESET_BTN_TEXT;
-            StateHasChanged();
-        });
-
-        if (isConfirmed) ;
+        loglist.Start();
     }
 }

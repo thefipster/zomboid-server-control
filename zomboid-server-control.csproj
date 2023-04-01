@@ -4,7 +4,7 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<RootNamespace>zomboid_server_control</RootNamespace>
+		<RootNamespace>TheFipster.Zomboid.ServerControl</RootNamespace>
 		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
 		<OutputType>Exe</OutputType>
 		<UserSecretsId>4a18b532-4bf0-4318-9268-1ed04427671c</UserSecretsId>

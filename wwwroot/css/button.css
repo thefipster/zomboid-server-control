@@ -1,0 +1,43 @@
+﻿.fip-button {
+    border: 1px solid #e4a9ff;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 500;
+    height: 3rem;
+    padding: 0 1rem;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: 0.3s;
+}
+
+    .fip-button:disabled,
+    .fip-button[disabled] {
+        border: 1px solid #999999;
+        background-color: rgba(255,255,255,0.4);
+        cursor: not-allowed;
+    }
+
+    .fip-button.fip-warning {
+        background-color: rgba(255, 0, 0, 0.5);
+    }
+
+    .fip-button:hover:enabled {
+        background-color: #6A3FBE;
+        transition: 0.3s;
+    }
+
+    .fip-button.fip-warning:hover:enabled {
+        background-color: red;
+        transition: 0.3s;
+    }

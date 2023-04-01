@@ -3,7 +3,7 @@ using Docker.DotNet.Models;
 using Microsoft.Extensions.Configuration.CommandLine;
 using System.Text;
 
-namespace zomboid_server_control.Data
+namespace TheFipster.Zomboid.ServerControl.Data
 {
     public class DockerInteropService
     {
@@ -17,6 +17,19 @@ namespace zomboid_server_control.Data
             client = new DockerClientConfiguration(
                 new Uri(settings.DOCKER_SOCKET))
                  .CreateClient();
+        }
+
+        public async Task<bool> PingAsync()
+        {
+            try
+            {
+                await client.System.PingAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task RestartAsync()
@@ -70,6 +83,24 @@ namespace zomboid_server_control.Data
                     if (value.ToLower() == "true")
                     {
                         return container.State;
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
+        public async Task<string> GetLinkedStatusAsync()
+        {
+            var containers = await client.Containers.ListContainersAsync(new ContainersListParameters());
+            foreach (var container in containers)
+            {
+                if (container.Labels.ContainsKey(AppSettings.ControlLabel))
+                {
+                    var value = container.Labels[AppSettings.ControlLabel];
+                    if (value.ToLower() == "true")
+                    {
+                        return container.Status;
                     }
                 }
             }

@@ -1,0 +1,16 @@
+﻿.fip-icon-button {
+    background: rgba(0,0,0,0);
+    border: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+}
+
+    .fip-icon-button.fip-warning {
+        transition: 0.3s;
+        color: #ddd;
+    }
+
+        .fip-icon-button.fip-warning:hover {
+            color: red;
+        }

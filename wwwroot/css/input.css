@@ -1,0 +1,19 @@
+﻿.fip-input-wrap {
+    border-bottom: 1px solid rgba(228, 169, 255, 0.6);
+    margin-bottom: 37px;
+}
+
+    .fip-input-wrap label {
+        color: #f7dcff;
+    }
+
+    .fip-input-wrap input {
+        background-color: rgba(0, 0, 0, 0);
+        outline: none;
+        border: none;
+        color: #ddd;
+        height: 40px;
+        display: block;
+        width: 100%;
+        font-size: 1.05rem;
+    }

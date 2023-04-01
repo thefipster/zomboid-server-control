@@ -1,7 +1,7 @@
 ﻿using System.Timers;
 using Timer = System.Timers.Timer;
 
-namespace zomboid_server_control.Data
+namespace TheFipster.Zomboid.ServerControl.Data
 {
     public class DockerLogPuller
     {
@@ -25,7 +25,7 @@ namespace zomboid_server_control.Data
 
         private async void PullLogs(object? sender, ElapsedEventArgs e)
         {
-            var logs = await interop.GetLogsAsync(15);
+            var logs = await interop.GetLogsAsync(100);
             var lines = logs.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             LogsPulled?.Invoke(this, lines);
         }

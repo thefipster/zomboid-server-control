@@ -1,4 +1,4 @@
-﻿namespace zomboid_server_control.Data
+﻿namespace TheFipster.Zomboid.ServerControl.Data
 {
     public class AppSettings
     {

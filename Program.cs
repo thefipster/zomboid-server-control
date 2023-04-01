@@ -1,4 +1,4 @@
-using zomboid_server_control.Data;
+using TheFipster.Zomboid.ServerControl.Data;
 
 internal class Program
 {
