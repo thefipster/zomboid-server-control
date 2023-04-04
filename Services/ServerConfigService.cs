@@ -1,4 +1,6 @@
-namespace TheFipster.Zomboid.ServerControl.Data
+using TheFipster.Zomboid.ServerControl.Models;
+
+namespace TheFipster.Zomboid.ServerControl.Services
 {
     public class ServerConfigService
     {

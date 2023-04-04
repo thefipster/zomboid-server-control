@@ -26,3 +26,13 @@
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+ul.validation-errors {
+    list-style: none;
+    padding-left: 0;
+}
+
+li.validation-errors {
+    transition: 0.5s;
+}
+
