@@ -1,5 +1,5 @@
-﻿@using TheFipster.Zomboid.ServerControl.Data;
-@using System.Timers;
+﻿@using System.Timers;
+@using TheFipster.Zomboid.ServerControl.Services;
 
 @inject IJSRuntime JsRuntime
 @inject ServerConfigService ServerConfig
@@ -18,14 +18,17 @@
         <i class="fa-solid fa-microchip"></i>
         @containerId
     </span>
-    <span title="State of the Container">
-        <i class="fa-solid fa-server"></i>
-        @containerState
-    </span>
-    <span title="Status of the Container">
-        <i class="fa-solid fa-stopwatch"></i>
-        @containerStatus
-    </span>
+    @if (containerFound)
+    {
+        <span title="State of the Container">
+            <i class="fa-solid fa-server"></i>
+            @containerState
+        </span>
+        <span title="Status of the Container">
+            <i class="fa-solid fa-stopwatch"></i>
+            @containerStatus
+        </span>
+    }
 </div>
 
 @code {
@@ -55,7 +58,7 @@
         if (!dockerOnline)
         {
             dockerStatus = "stopped";
-            containerId = string.Empty;
+            containerId = "not found";
             containerFound = false;
             containerState = string.Empty;
             containerStatus = string.Empty;
@@ -67,6 +70,7 @@
             if (string.IsNullOrWhiteSpace(containerId))
             {
                 containerFound = false;
+                containerId = "not found";
             }
             else
             {

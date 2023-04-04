@@ -1,4 +1,4 @@
-﻿namespace TheFipster.Zomboid.ServerControl.Data
+﻿namespace TheFipster.Zomboid.ServerControl.Models
 {
     public class ModCollection
     {
@@ -11,16 +11,16 @@
             : this()
             => this.mods.AddRange(mods);
 
-        public string ExportModsString => 
-            AppSettings.ModsPrefix 
-            + string.Join(';', 
+        public string ExportModsString =>
+            AppSettings.ModsPrefix
+            + string.Join(';',
                 mods
                 .OrderBy(x => x.Order)
                 .Select(x => x.Id));
 
-        public string ExportWorkshopString => 
-            AppSettings.WorkshopItemPrefix 
-            + string.Join(';', 
+        public string ExportWorkshopString =>
+            AppSettings.WorkshopItemPrefix
+            + string.Join(';',
                 mods
                 .OrderBy(x => x.Order)
                 .Select(x => x.WorkshopId));

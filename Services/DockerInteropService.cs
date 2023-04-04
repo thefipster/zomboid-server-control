@@ -2,8 +2,9 @@
 using Docker.DotNet.Models;
 using Microsoft.Extensions.Configuration.CommandLine;
 using System.Text;
+using TheFipster.Zomboid.ServerControl.Models;
 
-namespace TheFipster.Zomboid.ServerControl.Data
+namespace TheFipster.Zomboid.ServerControl.Services
 {
     public class DockerInteropService
     {
@@ -65,9 +66,9 @@ namespace TheFipster.Zomboid.ServerControl.Data
         {
             var containers = await client.Containers.ListContainersAsync(new ContainersListParameters());
             foreach (var container in containers)
-                if (container.Labels.ContainsKey(AppSettings.ControlLabel) 
+                if (container.Labels.ContainsKey(AppSettings.ControlLabel)
                     && container.Labels[AppSettings.ControlLabel].ToLower() == "true")
-                        return resultLength.HasValue ? container.ID.Substring(0, resultLength.Value) : container.ID;
+                    return resultLength.HasValue ? container.ID.Substring(0, resultLength.Value) : container.ID;
 
             return string.Empty;
         }

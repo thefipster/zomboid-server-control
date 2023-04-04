@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TheFipster.Zomboid.ServerControl.Attributes;
 
-namespace TheFipster.Zomboid.ServerControl.Data
+namespace TheFipster.Zomboid.ServerControl.Models
 {
     public class ModFormData
     {
@@ -18,7 +19,7 @@ namespace TheFipster.Zomboid.ServerControl.Data
 
         public void Reset()
         {
-            ModId = string.Empty; 
+            ModId = string.Empty;
             ModName = string.Empty;
             WorkshopId = string.Empty;
         }

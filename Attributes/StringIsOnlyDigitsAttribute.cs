@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TheFipster.Zomboid.ServerControl.Data
+namespace TheFipster.Zomboid.ServerControl.Attributes
 {
     public class StringIsOnlyDigitsAttribute : ValidationAttribute
     {
