@@ -1,0 +1,20 @@
+﻿@using System.Timers;
+@using TheFipster.Zomboid.ServerControl.Data;
+@using TheFipster.Zomboid.ServerControl.Services;
+
+@inject IJSRuntime JsRuntime
+@inject ServerConfigService ServerConfig
+@inject DockerInteropService DockerInterop
+
+<div id="fip-controls">
+    <h2>
+        <i class="fa-solid fa-server"></i>
+        Controls
+    </h2>
+
+    <button id="restart-btn" class="fip-button" @onclick="onRestartClick">
+        <i class="fa-solid fa-rotate"></i>
+        @btnText
+    </button>
+</div>
+

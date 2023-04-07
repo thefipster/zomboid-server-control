@@ -1,0 +1,31 @@
+﻿ul {
+    width: 100%;
+    height: calc(100% - 55px);
+    margin: 0;
+    padding: 0;
+    padding-right: 55px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+li {
+    border-bottom: 1px solid rgba(228, 169, 255, 0.6);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0.3rem;
+    transition: 0.3s;
+    cursor: move;
+}
+
+    li:first-child {
+        padding-top: 0;
+    }
+
+    li:hover {
+        background-color: rgba(228, 169, 255, 0.1);
+    }
+
+
+    li a {
+        margin-right: 30px;
+    }

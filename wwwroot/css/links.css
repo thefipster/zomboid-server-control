@@ -1,8 +1,0 @@
-﻿a {
-    color: #ddd;
-    transition: 0.3s;
-}
-
-    a:hover {
-        color: rgba(228, 169, 255, 1);
-    }

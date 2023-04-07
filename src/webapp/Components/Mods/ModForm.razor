@@ -1,0 +1,45 @@
+﻿@using TheFipster.Zomboid.ServerControl.Models;
+
+@inject IJSRuntime JsRuntime
+
+<div>
+    <h2>
+        <i class="fa-solid fa-square-plus"></i>
+        Add Mod
+    </h2>
+
+    <EditForm Model="@formData" OnValidSubmit="@formSubmit">
+        <DataAnnotationsValidator />
+
+        <div class="fip-input-wrap">
+            <label for"modids">Workshop Name</label>
+            <InputText id="modName"
+                       placeholder="Brita's weapons pack"
+                       name="modName"
+                       @bind-Value="formData.ModName" />
+        </div>
+
+        <div class="fip-input-wrap">
+            <label for"workshopids">Workshop Item</label>
+            <InputText id="workshopitem"
+                       placeholder="123456789"
+                       name="workshopitem"
+                       @bind-Value="formData.WorkshopId" />
+        </div>
+
+        <div class="fip-input-wrap">
+            <label for"workshopids">Mod ID</label>
+            <InputText id="modid"
+                       placeholder="brita"
+                       name="modid"
+                       @bind-Value="formData.ModId" />
+        </div>
+
+        <button id="add-btn" type="submit" class="fip-button">
+            <i class="fa-solid fa-plus"></i> 
+            Add
+        </button>
+
+        <ValidationSummary />
+    </EditForm>
+</div>

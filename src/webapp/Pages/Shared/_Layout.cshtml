@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using TheFipster.Zomboid.ServerControl.Components
+@using TheFipster.Zomboid.ServerControl.Components.General
+
+@namespace TheFipster.Zomboid.ServerControl.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Zomboid Server Manager</title>
+
+    <base href="~/" />
+
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/poppins">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css">
+
+    <link rel="stylesheet" href="css/custom/tags.css" />
+    <link rel="stylesheet" href="css/custom/form.css" />
+    <link rel="stylesheet" href="css/custom/flex.css" />
+    <link rel="stylesheet" href="css/custom/classes.css" />
+    <link rel="stylesheet" href="css/custom/error.css" />
+
+    <link rel="stylesheet" href="zomboid-server-control.styles.css" />
+
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+</head>
+<body>
+    <div class="fip-container">
+        <div class="fip-header">
+            <component type="typeof(PageHeadline)" render-mode="ServerPrerendered" />
+        </div>
+        <div class="fip-content">
+            @RenderBody()
+        </div>
+        <div class="fip-footer">
+            <component type="typeof(StatusBar)" render-mode="ServerPrerendered" />
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+    <script src="js/sortablejs/Sortable.min.js"></script>
+    <script src="js/custom/site.js" defer></script>
+</body>
+</html>

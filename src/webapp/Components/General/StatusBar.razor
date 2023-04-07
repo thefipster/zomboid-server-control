@@ -1,0 +1,43 @@
+﻿@using System.Timers;
+@using TheFipster.Zomboid.ServerControl.Services;
+
+@inject IJSRuntime JsRuntime
+@inject ServerConfigService ServerConfig
+@inject DockerInteropService DockerInterop
+
+<div>
+    @if (model.IsReady)
+    {
+        <span title="Active configuration file">
+            <i class="fa-solid fa-file-code"></i>
+            @model.ServerIniFilename
+        </span>
+
+        <span title="Status of the Docker Daemon">
+            <i class="fa-brands fa-docker"></i>
+            @model.DockerStatus
+        </span>
+
+        <span title="Linked Zomboid Game Container">
+            <i class="fa-solid fa-microchip"></i>
+            @model.ContainerId
+        </span>
+
+        @if (model.IsContainerLinked)
+        {
+            <span title="State of the Container">
+                <i class="fa-solid fa-server"></i>
+                @model.ContainerState
+            </span>
+
+            <span title="Status of the Container">
+                <i class="fa-solid fa-stopwatch"></i>
+                @model.ContainerStatus
+            </span>
+        }
+    }
+    else
+    {
+        <span>probes warming up...</span>
+    }
+</div>

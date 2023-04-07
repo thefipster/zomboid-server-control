@@ -1,0 +1,6 @@
+FROM gameservermanagers/linuxgsm-docker
+
+ENV GAMESERVER=pzserver
+ENV LGSM_GITHUBUSER=GameServerManagers
+ENV LGSM_GITHUBREPO=LinuxGSM
+ENV LGSM_GITHUBBRANCH=master

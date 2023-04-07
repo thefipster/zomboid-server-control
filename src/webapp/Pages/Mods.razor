@@ -1,0 +1,16 @@
+﻿@page "/mods"
+@using TheFipster.Zomboid.ServerControl.Components.Mods;
+@using TheFipster.Zomboid.ServerControl.Models;
+@using TheFipster.Zomboid.ServerControl.Services;
+
+@inject IJSRuntime JsRuntime
+@inject ServerConfigService ServerConfig
+@inject DockerInteropService DockerInterop
+
+<div>
+    <ModForm OnModAdded="addModAsync" />
+    <ServerControls OnRestartConfirmed="restartConfirmedAsync" />
+</div>
+
+<ModList @ref="modlist" />
+<LogList @ref="loglist" />

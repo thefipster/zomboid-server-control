@@ -1,0 +1,39 @@
+﻿@using TheFipster.Zomboid.ServerControl.Models;
+@using TheFipster.Zomboid.ServerControl.Services;
+
+@inject ModStorageService ModStorage
+@inject IJSRuntime JsRuntime
+
+<div id="fip-mods" class="fill">
+    <h2>
+        <i class="fa-solid fa-layer-group"></i>
+        @Mods.Count active Mods
+        <span class="fip-smaller">(drag and drop to change the order)</span>
+    </h2>
+
+    <ul id="fip-mod-list">
+        @foreach (var mod in Mods)
+        {
+            <li class="fip-drag"
+                id="@mod.WorkshopId"
+                data-fip-modid="@mod.Id"
+                data-fip-modname="@mod.Name">
+
+                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=@mod.WorkshopId" title="Open in steam workshop" target="_blank">
+                    <i class="fa-brands fa-steam-symbol fa-xl"></i>
+                </a>
+
+                <span class="fill">
+                    @mod.Name
+                    <span class="fip-smaller">(@mod.WorkshopId / @mod.Id)</span>
+                </span>
+
+                <button class="fip-icon-button fip-warning"
+                        title="remove"
+                        @onclick="() => onRemoveClick(mod.WorkshopId)">
+                    <i class="fa-solid fa-xmark fa-xl"></i>
+                </button>
+            </li>
+        }
+    </ul>
+</div>
