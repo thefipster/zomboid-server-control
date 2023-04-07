@@ -1,5 +1,6 @@
 using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Services;
+using TheFipster.Zomboid.ServerControl.Extensions;
 
 internal class Program
 {
@@ -7,24 +8,25 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddRazorPages();
-        builder.Services.AddServerSideBlazor();
-        builder.Configuration.AddEnvironmentVariables();
+        //builder.Configuration.AddEnvironmentVariables();
+        //builder.AddJsonFile(Const.AppSettingsFilename);
 
-        var settings = new AppSettings();
-        builder.Configuration.Bind(settings);
-        builder.Services.AddSingleton(settings);
+        builder.AddConfig<AppSettings>();
+        builder.AddConfigSection<List<SettingsEntry>>(Const.IniSettingsKey);
 
         builder.Services.AddSingleton<ServerConfigService>();
         builder.Services.AddSingleton<ModStorageService>();
         builder.Services.AddSingleton<DockerInteropService>();
+
+        builder.Services.AddRazorPages();
+        builder.Services.AddServerSideBlazor();
 
         builder.WebHost.UseStaticWebAssets();
 
         var app = builder.Build();
 
         if (!app.Environment.IsDevelopment())
-            app.UseExceptionHandler("/Error");
+            app.UseExceptionHandler("/error");
 
         app.UseStaticFiles();
         app.UseRouting();

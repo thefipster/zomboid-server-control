@@ -8,7 +8,7 @@ namespace TheFipster.Zomboid.ServerControl.Services
     {
         private readonly DockerClient client;
 
-        public DockerInteropService(AppSettings settings)
+        public DockerInteropService(AppSettings settings, IConfiguration config)
         {
             if (string.IsNullOrEmpty(settings.DOCKER_SOCKET))
                 throw new Exception("Docker socket to set in settings.");

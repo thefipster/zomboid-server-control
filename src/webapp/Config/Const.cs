@@ -17,5 +17,11 @@
         public const string LogReadyMessagePart = "Zomboid Steam Server started";
 
         public const char IniFileValueSeparator = ';';
+
+        public const string IniSettingsKey = "IniSettings";
+
+        public const string SandboxSettingsKey = "SandboxSettings";
+
+        public const string AppSettingsFilename = "appsettings.json";
     }
 }

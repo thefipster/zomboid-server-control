@@ -7,5 +7,7 @@
         public string? ZOMBOID_PATH { get; set; }
 
         public string? DOCKER_SOCKET { get; set; }
+
+        public string? Test { get; set; }
     }
 }

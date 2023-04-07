@@ -2,7 +2,7 @@
   "profiles": {
     "zomboid-server-control": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DATABASE_PATH": "E:\\zomboid\\server\\server-control-test",
