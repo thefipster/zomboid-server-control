@@ -1,37 +1,39 @@
 {
-  "Settings": [
-    {
-      "Label": "Enable player vs player combat",
-      "Short": "PVP enabled",
-      "Type": "bool",
-      "Key": "PVP",
-      "Default": "false"
-    },
-    {
-      "Label": "Server welcome message",
-      "Short": "Welcome",
-      "Type": "text",
-      "Key": "ServerWelcomeMessage",
-      "Default": "Welcome motherfuckers"
-    },
-    {
-      "Label": "Spawn point",
-      "Short": "Spawn",
-      "Type": "coordinate",
-      "Key": "SpawnPoint",
-      "Default": "0,0,0"
-    },
-    {
-      "Label": "Max Players",
-      "Short": "Players",
-      "Type": "number",
-      "Key": "MaxPlayers",
-      "Default": "32",
-      "Limits": {
-        "Min": 1,
-        "Max": 100,
-        "Step": 1
+  "IniSettings": {
+    "Entries": [
+      {
+        "Label": "Enable player vs player combat",
+        "Short": "PVP enabled",
+        "Type": "BoolSetting",
+        "Key": "PVP",
+        "Default": "false"
+      },
+      {
+        "Label": "Server welcome message",
+        "Short": "Welcome",
+        "Type": "TextSetting",
+        "Key": "ServerWelcomeMessage",
+        "Default": "Welcome motherfuckers"
+      },
+      {
+        "Label": "Spawn point",
+        "Short": "Spawn",
+        "Type": "CoordinateSetting",
+        "Key": "SpawnPoint",
+        "Default": "0,0,0"
+      },
+      {
+        "Label": "Max Players",
+        "Short": "Players",
+        "Type": "NumberSetting",
+        "Key": "MaxPlayers",
+        "Default": "32",
+        "Limits": {
+          "Min": 1,
+          "Max": 33,
+          "Step": 1
+        }
       }
-    }
-  ]
+    ]
+  }
 }

@@ -18,10 +18,9 @@
 
         public const char IniFileValueSeparator = ';';
 
-        public const string IniSettingsKey = "IniSettings";
+        public const string IniSettingsFilename = "inisettings.json";
 
-        public const string SandboxSettingsKey = "SandboxSettings";
+        public const string SandboxSettingsFilename = "sandboxsettings.json";
 
-        public const string AppSettingsFilename = "appsettings.json";
     }
 }

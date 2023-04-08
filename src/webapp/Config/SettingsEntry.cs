@@ -7,6 +7,16 @@
         public string Type { get; set; }
         public string Key { get; set; }
         public string Default { get; set; }
-        public SettingsLimit Limit { get; set; }
+        public SettingsLimit Limits { get; set; }
+
+        public SettingsEntry()
+        {
+            Label = string.Empty;
+            Short = string.Empty;
+            Type = string.Empty;
+            Key = string.Empty;
+            Default = string.Empty;
+            Limits = new();
+        }
     }
 }

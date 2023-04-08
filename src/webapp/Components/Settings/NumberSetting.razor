@@ -1,1 +1,4 @@
-﻿<h3>Number Setting</h3>
+﻿<div class="fip-input-wrap">
+    <label>@Setting.Label</label>
+    <InputNumber @bind-Value="internalValue" @oninput="valueChanged" min="@Setting.Limits.Min" max="@Setting.Limits.Max" step="@Setting.Limits.Step" />
+</div>

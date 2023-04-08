@@ -8,11 +8,12 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        //builder.Configuration.AddEnvironmentVariables();
-        //builder.AddJsonFile(Const.AppSettingsFilename);
+        builder.AddJsonFile(Const.IniSettingsFilename);
+        builder.AddJsonFile(Const.SandboxSettingsFilename);
 
         builder.AddConfig<AppSettings>();
-        builder.AddConfigSection<List<SettingsEntry>>(Const.IniSettingsKey);
+        builder.AddConfigSection<IniSettings>(IniSettings.SectionName);
+        builder.AddConfigSection<SandboxSettings>(SandboxSettings.SectionName);
 
         builder.Services.AddSingleton<ServerConfigService>();
         builder.Services.AddSingleton<ModStorageService>();

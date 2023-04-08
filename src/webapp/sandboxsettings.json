@@ -1,0 +1,18 @@
+{
+  "SandboxSettings": {
+    "Entries": [
+      {
+        "Label": "",
+        "Short": "",
+        "Type": "",
+        "Key": "",
+        "Default": "",
+        "Limits": {
+          "Min": 0,
+          "Max": 0,
+          "Step": 0
+        }
+      }
+    ]
+  }
+}
