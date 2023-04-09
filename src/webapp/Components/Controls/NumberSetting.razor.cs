@@ -2,7 +2,7 @@
 using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Models;
 
-namespace TheFipster.Zomboid.ServerControl.Components.Settings
+namespace TheFipster.Zomboid.ServerControl.Components.Controls
 {
     public partial class NumberSetting
     {
@@ -26,7 +26,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Settings
             if (internalValue != default)
                 return;
 
-            if (double.TryParse(Setting.Default, out var number))
+            if (double.TryParse(Setting.Active, System.Globalization.CultureInfo.InvariantCulture, out var number))
             {
                 internalValue = number;
             }
@@ -34,7 +34,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Settings
 
         private async Task valueChanged(ChangeEventArgs e)
         {
-            if (!double.TryParse(e.Value.ToString(), out var number))
+            if (!double.TryParse(e.Value.ToString(), System.Globalization.CultureInfo.InvariantCulture, out var number))
                 return;
 
             if (number < Setting.Limits.Min)
@@ -45,7 +45,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Settings
 
             internalValue = number;
 
-            var args = new SettingsUpdateEventArgs(number.ToString(), Setting.Key);
+            var args = new SettingsUpdateEventArgs(number.ToString(System.Globalization.CultureInfo.InvariantCulture), Setting.Name);
             await OnValueChanged.InvokeAsync(args);
         }
     }

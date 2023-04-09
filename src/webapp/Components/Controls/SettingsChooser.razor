@@ -14,24 +14,10 @@
 
 @if (Setting.Type == CoordinateSetting.SettingsType)
 {
-    <CoordinateSetting Setting="Setting" />
+    <CoordinateSetting Setting="Setting" OnValueChanged="valueChanged" />
 }
 
 @if (Setting.Type == TextSetting.SettingsType)
 {
     <TextSetting Setting="Setting" OnValueChanged="valueChanged" />
-}
-
-@code {
-    [Parameter]
-    public SettingsEntry Setting { get; set; }
-
-    [Parameter]
-    public EventCallback<SettingsUpdateEventArgs> OnValueChanged { get; set; }
-
-    private async Task valueChanged(SettingsUpdateEventArgs e)
-    {
-        await OnValueChanged.InvokeAsync(e);
-    }
-
 }

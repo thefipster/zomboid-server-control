@@ -1,6 +1,6 @@
 ﻿namespace TheFipster.Zomboid.ServerControl.Pages
 {
-    public partial class SandboxFile
+    public partial class Sandbox
     {
     }
 }

@@ -9,6 +9,10 @@
     color: #ddd;
 }
 
+input {
+    font-family: 'Poppins';
+}
+
 a {
     color: #ddd;
     transition: 0.3s;
@@ -31,6 +35,25 @@ h2 {
 
     h2 i {
         margin-right: 20px;
+    }
+
+h3 {
+    margin: unset;
+    padding: unset;
+    color: #f7dcff;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    font-weight: unset;
+}
+
+    h3 i {
+        margin-right: 20px;
+    }
+
+    h3:first-child {
+        margin-top: 0;
     }
 
 ::-webkit-scrollbar {

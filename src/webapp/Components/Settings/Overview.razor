@@ -1,0 +1,22 @@
+﻿@using TheFipster.Zomboid.ServerControl.Components.Controls
+@using TheFipster.Zomboid.ServerControl.Config;
+
+@inject IniSettings Settings
+@inject IJSRuntime JsRuntime
+
+<div>
+    <h2>
+        <i class="fa-solid fa-rectangle-list fa-xl"></i>
+        Navigator
+    </h2>
+    <ul>
+        @foreach (var entry in Settings.Entries.OrderBy(x => x.Name))
+        {
+            <li>
+                <a onclick="@(() => onClick(entry.Name))">
+                    @entry.Name
+                </a>
+            </li>
+        }
+    </ul>
+</div>

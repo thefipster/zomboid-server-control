@@ -1,0 +1,16 @@
+﻿<div class="input-toggle fip-input-wrap">
+    <label class="toggle">
+
+        @if (internalValue)
+        {
+            <input class="toggle-checkbox" checked type="checkbox" @oninput="valueChanged">
+        }
+        else
+        {
+            <input class="toggle-checkbox" type="checkbox" @oninput="valueChanged">
+        }
+
+        <div class="toggle-switch"></div>
+        <span class="toggle-label">@Setting.Label</span>
+    </label>
+</div>

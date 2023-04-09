@@ -2,7 +2,7 @@
 using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Models;
 
-namespace TheFipster.Zomboid.ServerControl.Components.Settings
+namespace TheFipster.Zomboid.ServerControl.Components.Controls
 {
     public partial class TextSetting
     {
@@ -26,12 +26,12 @@ namespace TheFipster.Zomboid.ServerControl.Components.Settings
             if (internalValue != default)
                 return;
 
-            internalValue = Setting.Default;
+            internalValue = Setting.Active;
         }
 
         private async Task valueChanged(ChangeEventArgs e)
         {
-            var args = new SettingsUpdateEventArgs(e.Value.ToString(), Setting.Key);
+            var args = new SettingsUpdateEventArgs(e.Value.ToString(), Setting.Name);
             await OnValueChanged.InvokeAsync(args);
         }
     }

@@ -3,7 +3,7 @@
 @using TheFipster.Zomboid.ServerControl.Services;
 
 @inject IJSRuntime JsRuntime
-@inject ServerConfigService ServerConfig
+@inject ModConfigService ServerConfig
 @inject DockerInteropService DockerInterop
 
 <div id="fip-controls">
@@ -11,6 +11,11 @@
         <i class="fa-solid fa-server fa-xl"></i>
         Controls
     </h2>
+
+    <button id="mod-diff-btn" class="fip-button" @onclick="onDiffClick">
+        <i class="fa-solid fa-arrows-split-up-and-left"></i>
+        Server Diff
+    </button>
 
     <button id="restart-btn" class="fip-button" @onclick="onRestartClick">
         <i class="fa-solid fa-rotate"></i>

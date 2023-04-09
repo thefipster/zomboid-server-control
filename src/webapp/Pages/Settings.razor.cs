@@ -2,20 +2,22 @@
 
 namespace TheFipster.Zomboid.ServerControl.Pages
 {
-    public partial class ServerFile
+    public partial class Settings
     {
-        public IniSettingsModel Model { get; set; }
+        public Dictionary<string, string> Model { get; set; }
 
-        public ServerFile()
+        public Settings()
         {
             Model = new();
         }
 
         private async Task valueChanged(SettingsUpdateEventArgs e)
         {
-            var type = typeof(IniSettingsModel);
-            var prop = type.GetProperty(e.Property);
-            prop.SetValue(Model, e.Value);
+            if (Model.ContainsKey(e.Property))
+                Model[e.Property] = e.Value;
+            else
+                Model.Add(e.Property, e.Value);
+
             await InvokeAsync(StateHasChanged);
         }
     }

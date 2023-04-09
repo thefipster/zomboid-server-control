@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Data;
 
 namespace TheFipster.Zomboid.ServerControl.Components.Mods
 {
-    public partial class ServerControls
+    public partial class ModControls
     {
         private readonly ConfirmTimer timer = new(2000, 2);
 
@@ -13,16 +14,21 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
         [Parameter]
         public EventCallback OnRestartConfirmed { get; set; }
 
+
+        [Parameter]
+        public EventCallback OnDiff { get; set; }
+
         protected override void OnInitialized()
-        {
-            timer.ResultReached += onRestartTriggerAsync;
-        }
+            => timer.ResultReached += onRestartTriggerAsync;
 
         private void onRestartClick()
         {
             btnText = string.Format(Messages.ConfirmRestartButtonTemplate, timer.ClicksLeft);
             timer.Click();
         }
+
+        private async Task onDiffClick()
+            => await OnDiff.InvokeAsync();
 
         private async Task onRestartTriggerAsync(object? sender, bool isConfirmed)
         {

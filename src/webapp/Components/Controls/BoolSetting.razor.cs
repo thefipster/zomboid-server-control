@@ -2,7 +2,7 @@
 using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Models;
 
-namespace TheFipster.Zomboid.ServerControl.Components.Settings
+namespace TheFipster.Zomboid.ServerControl.Components.Controls
 {
     public partial class BoolSetting
     {
@@ -24,12 +24,12 @@ namespace TheFipster.Zomboid.ServerControl.Components.Settings
 
         protected override void OnParametersSet()
         {
-            if (valueSet)
+            if (valueSet || Setting == null)
                 return;
 
-            valueSet= true;
+            valueSet = true;
 
-            if (bool.TryParse(Setting.Default.ToLower(), out var toggle))
+            if (bool.TryParse(Setting.Active.ToLower(), out var toggle))
             {
                 internalValue = toggle;
             }
@@ -37,7 +37,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Settings
 
         private async Task valueChanged(ChangeEventArgs e)
         {
-            var args = new SettingsUpdateEventArgs(e.Value.ToString().ToLower(), Setting.Key);
+            var args = new SettingsUpdateEventArgs(e.Value.ToString().ToLower(), Setting.Name);
             await OnValueChanged.InvokeAsync(args);
         }
     }

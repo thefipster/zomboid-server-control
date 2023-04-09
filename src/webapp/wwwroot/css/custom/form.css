@@ -9,6 +9,10 @@
     font-size: 1.05rem;
 }
 
+.fip-input-wrap {
+    margin-bottom: 30px;
+}
+
 .fip-button {
     border: 1px solid #e4a9ff;
     width: 100%;

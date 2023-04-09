@@ -1,0 +1,15 @@
+﻿ul {
+    width: 250px;
+    min-width: 250px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.debug-props li div:first-of-type {
+    color: #f7dcff;
+}
+
+.debug-props li div:last-of-type {
+    margin-bottom: 10px;
+}

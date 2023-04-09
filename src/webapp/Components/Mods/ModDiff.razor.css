@@ -1,0 +1,40 @@
+﻿#fip-mods-diff {
+    flex-grow: 4;
+    display: none;
+}
+
+.mod-diff-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.mod-diff-content {
+    overflow: hidden;
+    overflow-y: auto;
+    margin-bottom: 30px;
+    margin-right: -55px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    padding-right: 55px;
+}
+
+li {
+    border-bottom: 1px solid rgba(228, 169, 255, 0.6);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0.3rem;
+    transition: 0.3s;
+}
+
+    li:hover {
+        background-color: rgba(228, 169, 255, 0.1);
+    }
+
+    li a {
+        margin-right: 30px;
+    }

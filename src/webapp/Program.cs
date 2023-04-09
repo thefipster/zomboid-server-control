@@ -15,7 +15,9 @@ internal class Program
         builder.AddConfigSection<IniSettings>(IniSettings.SectionName);
         builder.AddConfigSection<SandboxSettings>(SandboxSettings.SectionName);
 
-        builder.Services.AddSingleton<ServerConfigService>();
+        builder.Services.AddSingleton<IniFileService>();
+        builder.Services.AddSingleton<IniSettingsService>();
+        builder.Services.AddSingleton<ModConfigService>();
         builder.Services.AddSingleton<ModStorageService>();
         builder.Services.AddSingleton<DockerInteropService>();
 

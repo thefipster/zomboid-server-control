@@ -4,13 +4,14 @@
 @using TheFipster.Zomboid.ServerControl.Services;
 
 @inject IJSRuntime JsRuntime
-@inject ServerConfigService ServerConfig
+@inject ModConfigService ServerConfig
 @inject DockerInteropService DockerInterop
 
 <div>
     <ModForm OnModAdded="addModAsync" />
-    <ServerControls OnRestartConfirmed="restartConfirmedAsync" />
+    <ModControls OnRestartConfirmed="restartConfirmedAsync" OnDiff="diffAsync" />
 </div>
 
 <ModList @ref="modlist" />
+<ModDiff @ref="modDiff" />
 <LogList @ref="loglist" />

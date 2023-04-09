@@ -38,6 +38,8 @@ interop.onAfterRender = function () {
 interop.showLogs = function () {
     document.getElementById("fip-logs").style.display = "block";
     document.getElementById("fip-mods").style.display = "none";
+    document.getElementById("fip-mods-diff").style.display = "none";
+
     document.getElementById("add-btn").disabled = true;
     document.getElementById("restart-btn").disabled = true;
 
@@ -50,7 +52,20 @@ interop.showLogs = function () {
 interop.showMods = function () {
     document.getElementById("fip-logs").style.display = "none";
     document.getElementById("fip-mods").style.display = "block";
+    document.getElementById("fip-mods-diff").style.display = "none";
+
     document.getElementById("add-btn").disabled = false;
+    document.getElementById("restart-btn").disabled = false;
+
+    window.clearInterval(scrollTimer);
+};
+
+interop.showModDiff = function () {
+    document.getElementById("fip-logs").style.display = "none";
+    document.getElementById("fip-mods").style.display = "none";
+    document.getElementById("fip-mods-diff").style.display = "block";
+
+    document.getElementById("add-btn").disabled = true;
     document.getElementById("restart-btn").disabled = false;
 
     window.clearInterval(scrollTimer);
@@ -68,3 +83,22 @@ interop.focus = function () {
         return;
     }
 };
+
+interop.scrollToAnchor = function (elementId, anchorName) {
+    const overflow = document.getElementById(elementId);
+    const anchor = document.getElementById(anchorName);
+
+    const rectOverflow = overflow.getBoundingClientRect();
+    const rectAnchor = anchor.getBoundingClientRect();
+
+    overflow.scrollTop = rectAnchor.top - rectOverflow.top;
+
+    anchor.classList.add("fip-flash");
+    setTimeout(function () {
+        anchor.classList.remove("fip-flash");
+        anchor.classList.add("fip-flash-out");
+        setTimeout(function () {
+            anchor.classList.remove("fip-flash-out");
+        }, 1000);
+    }, 1000);
+}

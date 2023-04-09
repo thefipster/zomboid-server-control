@@ -9,3 +9,24 @@
 .fip-center {
     text-align: center;
 }
+
+.fip-input-wrap {
+    background-color: transparent;
+    -webkit-transition: background-color 1000ms ease-in-out;
+    -ms-transition: background-color 1000ms ease-in-out;
+    transition: background-color 1000ms ease-in-out;
+}
+
+.fip-flash {
+    background-color: rgba(255,255,255,0.1);
+    -webkit-transition: background-color 1000ms ease-in-out;
+    -ms-transition: background-color 1000ms ease-in-out;
+    transition: background-color 1000ms ease-in-out;
+}
+
+.fip-flash-out {
+    background-color: transparent;
+    -webkit-transition: background-color 1000ms ease-in-out;
+    -ms-transition: background-color 1000ms ease-in-out;
+    transition: background-color 1000ms ease-in-out;
+}

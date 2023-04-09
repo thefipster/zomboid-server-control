@@ -2,37 +2,149 @@
   "IniSettings": {
     "Entries": [
       {
+        "Type": "BoolSetting",
+        "Name": "PVP",
         "Label": "Enable player vs player combat",
         "Short": "PVP enabled",
-        "Type": "BoolSetting",
-        "Key": "PVP",
+        "Info": "",
         "Default": "false"
       },
       {
+        "Type": "BoolSetting",
+        "Name": "SafetySystem",
+        "Label": "Players can toggle PVP",
+        "Short": "PVP Toggle",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "ShowSafety",
+        "Label": "Show player PVP status",
+        "Short": "PVP Display",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "NumberSetting",
+        "Name": "SafetyToggleTimer",
+        "Label": "Transition time for PVP mode",
+        "Short": "PVP Transition",
+        "Info": "",
+        "Default": "2",
+        "Limits": {
+          "Min": 0,
+          "Max": 1000,
+          "Step": 1
+        }
+      },
+      {
+        "Type": "NumberSetting",
+        "Name": "SafetyCooldownTimer",
+        "Label": "Cooldown after PVP changed",
+        "Short": "PVP Cooldown",
+        "Info": "",
+        "Default": "3",
+        "Limits": {
+          "Min": 0,
+          "Max": 1000,
+          "Step": 1
+        }
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "PauseEmpty",
+        "Label": "Pause server when no player is online",
+        "Short": "Pause when empty",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "TextSetting",
+        "Name": "ServerWelcomeMessage",
         "Label": "Server welcome message",
         "Short": "Welcome",
-        "Type": "TextSetting",
-        "Key": "ServerWelcomeMessage",
+        "Info": "",
         "Default": "Welcome motherfuckers"
       },
       {
+        "Type": "CoordinateSetting",
+        "Name": "SpawnPoint",
         "Label": "Spawn point",
         "Short": "Spawn",
-        "Type": "CoordinateSetting",
-        "Key": "SpawnPoint",
+        "Info": "",
         "Default": "0,0,0"
       },
       {
+        "Type": "NumberSetting",
+        "Name": "MaxPlayers",
         "Label": "Max Players",
         "Short": "Players",
-        "Type": "NumberSetting",
-        "Key": "MaxPlayers",
+        "Info": "",
         "Default": "32",
         "Limits": {
           "Min": 1,
           "Max": 33,
           "Step": 1
         }
+      },
+      {
+        "Type": "NumberSetting",
+        "Name": "MinutesPerPage",
+        "Label": "Minutes to read page of book",
+        "Short": "Read speed",
+        "Info": "",
+        "Default": "1",
+        "Limits": {
+          "Min": 0,
+          "Max": 60,
+          "Step": 0.1
+        }
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AllowDestructionBySledgehammer",
+        "Label": "Allow destruction by sledgehammer",
+        "Short": "Sledgehammer destruction",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "TextSetting",
+        "Name": "Password",
+        "Label": "Server Password",
+        "Short": "Password",
+        "Info": "",
+        "Default": ""
+      },
+      {
+        "Type": "NumberSetting",
+        "Name": "MaxAccountsPerUser",
+        "Label": "Accounts per User",
+        "Short": "Max Accounts",
+        "Info": "",
+        "Default": "0",
+        "Limits": {
+          "Min": 0,
+          "Max": 2147483647,
+          "Step": 1
+        }
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "SleepAllowed",
+        "Label": "Allow sleep",
+        "Short": "Sledgehammer destruction",
+        "Info": "",
+        "Default": "false"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "SleepNeeded",
+        "Label": "Sleep is needed",
+        "Short": "Need sleep",
+        "Info": "",
+        "Default": "false"
       }
     ]
   }

@@ -18,7 +18,7 @@
         public const string ConfirmRestartButtonTemplate = "Click again {0}x";
 
         // Status Bar
-        public const string NoLinkedContainerFoundText = "";
+        public const string NoLinkedContainerFoundText = "no link found";
         public const string DockerDaemonOnText = "active";
         public const string DockerDaemonOffText = "stopped";
     }
