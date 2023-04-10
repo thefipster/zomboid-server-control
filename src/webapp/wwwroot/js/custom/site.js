@@ -94,3 +94,17 @@ interop.showFailure = function (elementId) {
         element.classList.remove("fip-failure");
     }, 2000);
 }
+
+function showNavMenu() {
+    document.getElementById("nav-dropdown-slider").classList.toggle("hide");
+    return false;
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (event) {
+    console.log(event);
+    if (event.target.id !== 'nav-menu-opener') {
+        var dropdowns = document.getElementById("nav-dropdown-slider");
+        dropdowns.classList.add('hide');
+    }
+}

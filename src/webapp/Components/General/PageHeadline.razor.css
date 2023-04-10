@@ -10,7 +10,7 @@ h1 {
     display: block;
     margin: unset;
     margin-bottom: 4px;
-    margin-right: 100px;
+    margin-right: 50px;
     font-size: 42px;
     font-weight: 300;
     color: #e4a9ff;
@@ -21,26 +21,3 @@ h1 {
 a {
     text-decoration: none;
 }
-
-i {
-    display: block;
-}
-
-ul {
-    margin-top: 30px;
-    list-style: none;
-    display: flex;
-    justify-content: start;
-    gap: 50px;
-}
-
-li {
-    text-transform: uppercase;
-}
-
-    li a {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
-        text-align: center;
-    }

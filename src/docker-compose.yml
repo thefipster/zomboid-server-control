@@ -15,18 +15,18 @@ services:
       - "16261:16261/udp"
       - "16262:16262/udp"
 
-  # web:
-  #   image: dcr.thefipster.com/zomboid/zamboni
-  #   build:
-  #     context: webapp
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     ASPNETCORE_ENVIRONMENT: Development
-  #     DATABASE_PATH: "/var/zamboni"
-  #     ZOMBOID_PATH: "/var/zamboni/config"
-  #     DOCKER_SOCKET: "npipe://./pipe/docker_engine"
-  #   volumes:
-  #     - /mnt/e/zomboid/server/server-control-test:/var/zamboni
-  #   ports:
-  #     - "8888:80"
+  web:
+    image: dcr.thefipster.com/zomboid/zamboni
+    build:
+      context: webapp
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DATABASE_PATH: "/var/zamboni"
+      ZOMBOID_PATH: "/var/zamboni/config"
+      DOCKER_SOCKET: "npipe://./pipe/docker_engine"
+    volumes:
+      - /mnt/e/zomboid/server/server-control-test:/var/zamboni
+    ports:
+      - "8888:80"
     
