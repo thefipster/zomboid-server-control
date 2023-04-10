@@ -1,11 +1,8 @@
 ﻿ul {
     width: 100%;
-    height: calc(100% - 55px);
     margin: 0;
     padding: 0;
     padding-right: 55px;
-    overflow: hidden;
-    overflow-y: auto;
 }
 
 li {
@@ -29,3 +26,4 @@ li {
     li a {
         margin-right: 30px;
     }
+

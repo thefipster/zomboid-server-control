@@ -17,7 +17,6 @@
     border: 1px solid #e4a9ff;
     width: 100%;
     background-color: rgba(0, 0, 0, 0);
-    border-radius: 8px;
     box-sizing: border-box;
     color: #FFFFFF;
     cursor: pointer;
@@ -33,7 +32,7 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    transition: 0.3s;
+    transition: 0.1s;
 }
 
 .fip-button i {

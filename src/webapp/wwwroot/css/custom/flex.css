@@ -5,33 +5,44 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 50px;
+    gap: 3px;
 }
 
 .fip-header {
     height: 100px;
     background: rgba(0,0,0,0.6);
     padding: 0 55px;
-    border-radius: 0 0 20px 20px;
-    box-shadow: rgba(17, 17, 26, 0.15) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 
 .fip-content {
-    height: calc(100vh - 330px);
-    min-height: 600px;
     display: flex;
     gap: 55px;
     justify-content: space-between;
     align-content: stretch;
     background: rgba(0,0,0,0.6);
     padding: 40px 55px;
-    border-radius: 20px;
-    box-shadow: rgba(17, 17, 26, 0.15) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 
 .fip-footer {
     height: 50px;
     background: rgba(0,0,0,0.6);
     padding: 0 55px;
-    border-radius: 20px 20px 0 0;
+}
+
+@media only screen and (max-width: 1400px) {
+    .fip-container {
+        width: 90%;
+        transition-duration: 0;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .fip-container {
+        width: 100%;
+        min-width: 600px;
+    }
+
+    .fip-header {
+        height: unset;
+    }
 }

@@ -61,17 +61,18 @@ interop.focus = function () {
 };
 
 interop.scrollToAnchor = function (elementId, anchorName) {
-    const overflow = document.getElementById(elementId);
+    //const overflow = document.getElementById(elementId);
     const anchor = document.getElementById(anchorName);
+    anchor.scrollIntoView();
 
-    const rectOverflow = overflow.getBoundingClientRect();
-    const rectAnchor = anchor.getBoundingClientRect();
+    //const rectOverflow = document.getBoundingClientRect();
+    //const rectAnchor = anchor.getBoundingClientRect();
 
-    if (rectAnchor.top < rectOverflow.top) {
-        overflow.scrollTop += rectAnchor.top - rectOverflow.top;
-    } else if (rectAnchor.bottom > rectOverflow.bottom) {
-        overflow.scrollTop += rectAnchor.bottom - rectOverflow.bottom;
-    }
+    //if (rectAnchor.top < rectOverflow.top) {
+    //    document.scrollTop += rectAnchor.top - rectOverflow.top;
+    //} else if (rectAnchor.bottom > rectOverflow.bottom) {
+    //    document.scrollTop += rectAnchor.bottom - rectOverflow.bottom;
+    //}
 
     anchor.classList.add("breath");
     setTimeout(function () {
@@ -93,18 +94,4 @@ interop.showFailure = function (elementId) {
     setTimeout(function () {
         element.classList.remove("fip-failure");
     }, 2000);
-}
-
-function showNavMenu() {
-    document.getElementById("nav-dropdown-slider").classList.toggle("hide");
-    return false;
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function (event) {
-    console.log(event);
-    if (event.target.id !== 'nav-menu-opener') {
-        var dropdowns = document.getElementById("nav-dropdown-slider");
-        dropdowns.classList.add('hide');
-    }
 }

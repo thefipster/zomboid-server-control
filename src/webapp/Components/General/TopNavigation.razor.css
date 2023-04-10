@@ -2,86 +2,60 @@
     text-decoration: none;
     height: 100%;
     width: 100%;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    text-align: center;
 }
 
 ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.nav-bar i {
+i {
     display: block;
+    transition-duration: .4s;
 }
 
-.nav-bar ul {
-    margin-top: 30px;
+span {
+    height: 25px;
+    color: #ccc;
+}
+
+ul {
+    margin-top: 20px;
     display: flex;
     justify-content: start;
     gap: 50px;
+    transition-duration: 0.4s;
 }
 
-.nav-bar li {
+li {
     text-transform: uppercase;
 }
 
-    .nav-bar li a {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
-        text-align: center;
-        align-content: baseline;
-    }
-
-.nav-list button {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
-    border: 0;
-    color: #f7dcff;
-    cursor: pointer;
-}
-
-.nav-list ul {
-    background-color: rgba(0,0,0,0.7);
-    border: 1px solid #e4a9ff;
-    margin: 20px 20px 20px -72px;
-    padding: 0;
-    position: absolute;
-    z-index: 1;
-    border-radius: 20px;
-}
-
-.nav-list li {
-    padding: 10px 20px;
-    font-size: 20px;
-    font-weight: 400;
-    border-top: 1px solid #e4a9ff;
-}
-
-    .nav-list li:first-child {
-        border-top: 0;
-        border-radius: 20px 20px 0 0;
-    }
-    .nav-list li:last-child {
-        border-radius: 0 0 20px 20px;
-    }
-
-    .nav-list li:hover {
-        background-color: #6A3FBE;
-        transition: 0.3s;
-    }
-
-.nav-list li i {
-    margin-right: 10px;
-}
-
 @media only screen and (max-width: 1400px) {
-    nav.nav-bar {
-        display: none;
+    ul {
+        gap: 20px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    ul {
+        justify-content: center;
+        margin-bottom: 10px;
     }
 
-    nav.nav-list {
-        display: block;
+    i {
+        font-size: 1.4rem;
+    }
+
+    span {
+        height: 15px;
+        color: #ccc;
+        font-size: .8rem;
     }
 }
