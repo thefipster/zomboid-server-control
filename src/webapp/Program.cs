@@ -8,14 +8,21 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        //builder.Configuration.AddEnvironmentVariables();
-        //builder.AddJsonFile(Const.AppSettingsFilename);
+        builder.AddJsonFile(Const.IniSettingsFilename);
+        builder.AddJsonFile(Const.SandboxSettingsFilename);
 
         builder.AddConfig<AppSettings>();
-        builder.AddConfigSection<List<SettingsEntry>>(Const.IniSettingsKey);
+        builder.AddConfigSection<IniSettings>(IniSettings.SectionName);
+        builder.AddConfigSection<SandboxSettings>(SandboxSettings.SectionName);
 
-        builder.Services.AddSingleton<ServerConfigService>();
+        builder.Services.Configure<IniSettings>(builder.Configuration.GetSection(IniSettings.SectionName));
+
+        builder.Services.AddSingleton<IniFileService>();
+        builder.Services.AddSingleton<IniSettingsService>();
+        builder.Services.AddSingleton<ModConfigService>();
+        builder.Services.AddSingleton<LiteDatabaseService>();
         builder.Services.AddSingleton<ModStorageService>();
+        builder.Services.AddSingleton<ModArchiveService>();
         builder.Services.AddSingleton<DockerInteropService>();
 
         builder.Services.AddRazorPages();

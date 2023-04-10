@@ -1,0 +1,26 @@
+﻿@using TheFipster.Zomboid.ServerControl.Components.Controls
+@using TheFipster.Zomboid.ServerControl.Config;
+@using TheFipster.Zomboid.ServerControl.Services;
+
+@inject IniSettings Settings
+@inject IniSettingsService Service
+
+<div class="fill">
+    <h2>
+        <i class="fa-solid fa-file-code fa-xl"></i>
+        Settings
+    </h2>
+
+    <ul id="dynamic-form">
+        @foreach (var entry in settings.Entries)
+        {
+            <li id="@entry.Name">
+                <SettingsChooser Setting="entry" OnValueChanged="valueChanged" />
+            </li>
+        }
+        <li>
+            &nbsp;
+        </li>
+    </ul>
+
+</div>

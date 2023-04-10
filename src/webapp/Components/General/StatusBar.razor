@@ -1,9 +1,8 @@
-﻿@using System.Timers;
-@using TheFipster.Zomboid.ServerControl.Services;
+﻿@using TheFipster.Zomboid.ServerControl.Services;
 
+@inject IniFileService FileService
+@inject DockerInteropService DockerService
 @inject IJSRuntime JsRuntime
-@inject ServerConfigService ServerConfig
-@inject DockerInteropService DockerInterop
 
 <div>
     @if (model.IsReady)
@@ -18,10 +17,13 @@
             @model.DockerStatus
         </span>
 
-        <span title="Linked Zomboid Game Container">
-            <i class="fa-solid fa-microchip"></i>
-            @model.ContainerId
-        </span>
+        @if (model.IsDockerActive)
+        {
+            <span title="Linked Zomboid Game Container">
+                <i class="fa-solid fa-microchip"></i>
+                @model.ContainerId
+            </span>
+        }
 
         @if (model.IsContainerLinked)
         {

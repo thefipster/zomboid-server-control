@@ -1,26 +1,42 @@
-﻿using System.Timers;
+﻿using Microsoft.JSInterop;
+using System.Timers;
+using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Models;
-using Timer = System.Timers.Timer;
 
 namespace TheFipster.Zomboid.ServerControl.Components.General
 {
     public partial class StatusBar
     {
-        readonly Timer pingTimer = new(1000);
-        readonly StatusBarModel model = new();
+        private readonly System.Timers.Timer pingTimer = new(1000);
+        private readonly StatusBarModel model = new();
 
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             pingTimer.Elapsed += pingDockerLoop;
             pingTimer.Start();
 
-            model.ServerIniFilename = ServerConfig.GetIniFilename();
+            model.ServerIniFilename = FileService.GetIniName();
+        }
+
+        protected override async void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            if (firstRender)
+            {
+                var dotNetReference = DotNetObjectReference.Create(this);
+                await JsRuntime.InvokeVoidAsync(
+                    JsMethods.SyncInstances, 
+                    dotNetReference
+                );
+            }
         }
 
         private async void pingDockerLoop(object? sender, ElapsedEventArgs e)
         {
             model.IsReady = true;
-            model.IsDockerActive = await DockerInterop.PingAsync();
+            model.IsDockerActive = await DockerService.PingAsync();
 
             if (!model.IsDockerActive)
                 model.SetDockerStopped();
@@ -32,7 +48,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.General
 
         private async Task probeContainerAsync()
         {
-            var id = await DockerInterop.GetLinkedIdAsync(16);
+            var id = await DockerService.GetLinkedIdAsync(16);
             model.SetContainerFound(id);
 
             if (model.IsContainerLinked)
@@ -41,8 +57,8 @@ namespace TheFipster.Zomboid.ServerControl.Components.General
 
         private async Task setContainerStateAsync()
         {
-            model.ContainerState = await DockerInterop.GetLinkedStateAsync();
-            model.ContainerStatus = await DockerInterop.GetLinkedStatusAsync();
+            model.ContainerState = await DockerService.GetLinkedStateAsync();
+            model.ContainerStatus = await DockerService.GetLinkedStatusAsync();
         }
     }
 }

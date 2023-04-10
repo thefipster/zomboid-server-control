@@ -1,0 +1,8 @@
+﻿<div class="input-number fip-input-wrap">
+    <label>@Setting.Label</label>
+    <InputNumber @bind-Value="internalValue"
+                 @oninput="valueChanged"
+                 min="@Setting.Limits.Min.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                 max="@Setting.Limits.Max.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                 step="@Setting.Limits.Step.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
+</div>

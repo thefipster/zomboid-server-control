@@ -1,6 +1,6 @@
 ﻿namespace TheFipster.Zomboid.ServerControl.Pages
 {
-    public partial class ServerFile
+    public partial class Archive
     {
     }
 }

@@ -1,0 +1,15 @@
+﻿<div>
+    <h2>
+        <i class="fa-solid fa-bug fa-xl"></i>
+        Debug
+    </h2>
+    <ul class="debug-props">
+        @foreach (var prop in Model.OrderBy(x => x.Key))
+        {
+            <li>
+                <div>@prop.Key</div>
+                <div>@prop.Value</div>
+            </li>
+        }
+    </ul>
+</div>

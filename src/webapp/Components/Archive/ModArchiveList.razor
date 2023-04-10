@@ -1,0 +1,37 @@
+﻿@using TheFipster.Zomboid.ServerControl.Models;
+@using TheFipster.Zomboid.ServerControl.Services;
+
+@inject ModArchiveService ModArchive
+
+<div id="fip-mods-archive" class="fill">
+    <h2>
+        <i class="fa-solid fa-box-archive fa-xl"></i>
+        @Archive.Count archived mods
+    </h2>
+
+    <ul id="fip-mod-archive-list">
+        @foreach (var item in Archive)
+        {
+            <li class="mod-archive-item"
+                id="@item.WorkshopId"
+                data-fip-modid="@item.Mod.Id"
+                data-fip-modname="@item.Mod.Name">
+
+                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=@item.WorkshopId"
+                   title="Open in steam workshop"
+                   target="_blank">
+                    <i class="fa-brands fa-steam-symbol fa-xl"></i>
+                </a>
+
+                <span class="fill">
+                    @item.Mod.Name
+                    <span class="fip-smaller">(@item.WorkshopId / @item.Mod.Id)</span>
+                </span>
+
+                <span>
+                    @item.ArchivedAt.ToShortDateString()
+                </span>
+            </li>
+        }
+    </ul>
+</div>

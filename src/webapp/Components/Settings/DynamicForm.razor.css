@@ -1,0 +1,11 @@
+﻿ul {
+    width: 100%;
+    height: calc(100% - 55px);
+    margin: 0;
+    padding: 0;
+    padding-right: 55px;
+    overflow: hidden;
+    overflow-y: auto;
+    list-style: none;
+    scroll-behavior: smooth;
+}

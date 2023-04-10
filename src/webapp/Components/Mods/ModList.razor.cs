@@ -9,25 +9,16 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
         public IList<ModConfig> Mods { get; set; } = new List<ModConfig>();
 
         protected override void OnInitialized()
-            => Mods = ModStorage.Read().ToList();
+        {
+            base.OnInitialized();
+            Mods = ModStorage.Get().ToList();
+        }
 
         protected override async void OnAfterRender(bool firstRender)
         {
             base.OnAfterRender(firstRender);
             if (firstRender)
-            {
-                var dotNetReference = DotNetObjectReference.Create(this);
-                await JsRuntime.InvokeVoidAsync(JsMethods.SyncInstances, dotNetReference);
-                await JsRuntime.InvokeVoidAsync(JsMethods.OnAfterRender);
-            }
-        }
-
-        [JSInvokable(JsInvokables.SyncMods)]
-        public void SyncMods(ModConfig[] reorderedMods)
-        {
-            syncModOrder(reorderedMods);
-            Mods = Mods.OrderBy(x => x.Order).ToList();
-            ModStorage.Write(Mods);
+                await JsRuntime.InvokeVoidAsync(JsMethods.SetupModsDragAndDrop);
         }
 
         public async Task AddModAsync(ModConfig mod)
@@ -40,7 +31,6 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
 
             mod.Order = Mods.Count;
             Mods.Add(mod);
-            ModStorage.Write(Mods);
             StateHasChanged();
         }
 
@@ -51,19 +41,8 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
             var mod = Mods.FirstOrDefault(x => x.WorkshopId == workshopId);
             if (mod != null)
             {
-                ModStorage.Archive(mod);
+                ModArchive.Insert(mod);
                 Mods.Remove(mod);
-            }
-
-            ModStorage.Write(Mods);
-        }
-
-        private void syncModOrder(ModConfig[] reorderedMods)
-        {
-            for (int i = 0; i < reorderedMods.Count(); i++)
-            {
-                var workshopId = reorderedMods[i].WorkshopId;
-                Mods.First(x => x.WorkshopId == workshopId).Order = i;
             }
         }
     }

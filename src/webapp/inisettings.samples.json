@@ -1,0 +1,43 @@
+{
+  "IniSettings": {
+    "Entries": [
+      {
+        "Type": "BoolSetting",
+        "Label": "",
+        "Info": "",
+        "Short": "",
+        "Key": "",
+        "Default": ""
+      },
+      {
+        "Type": "TextSetting",
+        "Label": "",
+        "Info": "",
+        "Short": "",
+        "Key": "",
+        "Default": ""
+      },
+      {
+        "Type": "CoordinateSetting",
+        "Label": "",
+        "Info": "",
+        "Short": "",
+        "Key": "",
+        "Default": ""
+      },
+      {
+        "Type": "NumberSetting",
+        "Label": "",
+        "Info": "",
+        "Short": "",
+        "Key": "",
+        "Default": "",
+        "Limits": {
+          "Min": 0,
+          "Max": 0,
+          "Step": 0
+        }
+      }
+    ]
+  }
+}

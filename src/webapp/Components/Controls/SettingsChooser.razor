@@ -1,0 +1,23 @@
+﻿@using System.Reflection;
+@using TheFipster.Zomboid.ServerControl.Config;
+@using TheFipster.Zomboid.ServerControl.Models;
+
+@if (Setting.Type == BoolSetting.SettingsType)
+{
+    <BoolSetting Setting="Setting" OnValueChanged="valueChanged" />
+}
+
+@if (Setting.Type == NumberSetting.SettingsType)
+{
+    <NumberSetting Setting="Setting" OnValueChanged="valueChanged" />
+}
+
+@if (Setting.Type == CoordinateSetting.SettingsType)
+{
+    <CoordinateSetting Setting="Setting" OnValueChanged="valueChanged" />
+}
+
+@if (Setting.Type == TextSetting.SettingsType)
+{
+    <TextSetting Setting="Setting" OnValueChanged="valueChanged" />
+}

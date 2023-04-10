@@ -83,7 +83,11 @@ namespace TheFipster.Zomboid.ServerControl.Services
 
         private async Task<ContainerListResponse?> getContainerInfoAsync()
         {
-            var containers = await client.Containers.ListContainersAsync(new ContainersListParameters());
+            var containers = await client.Containers.ListContainersAsync(new ContainersListParameters()
+            {
+                All = true
+            });
+
             foreach (var container in containers)
             {
                 container.Labels.TryGetValue(Const.ControlLabel, out var label);

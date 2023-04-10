@@ -2,6 +2,8 @@
 {
     public class ModArchive
     {
+        public ModArchive() { }
+
         public ModArchive(ModConfig mod)
         {
             Mod = mod;

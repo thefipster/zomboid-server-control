@@ -1,0 +1,17 @@
+﻿<div class="input-coordinate fip-input-wrap">
+    <label>@Setting.Label (check <a href="https://map.projectzomboid.com/" target="_blank">Knox Country Map</a> for coordinates)</label>
+    <div class="coordinate-container">
+        <div>
+            <label>x-Coordinate</label>
+            <InputNumber @bind-Value="x" @oninput="xChanged" min="0" />
+        </div>
+        <div>
+            <label>y-Coordinate</label>
+            <InputNumber @bind-Value="y" @oninput="yChanged" min="0" />
+        </div>
+        <div>
+            <label>Floor</label>
+            <InputNumber @bind-Value="floor" @oninput="floorChanged" min="0" max="7" />
+        </div>
+    </div>
+</div>

@@ -8,25 +8,22 @@ namespace TheFipster.Zomboid.ServerControl.Pages
     public partial class Mods
     {
         ModList? modlist;
-        LogList? loglist;
+        ModDiff? modDiff;
 
         private async Task addModAsync(ModConfig mod)
         {
-            if (modlist == null)
-                return;
+            ModArchive.Insert(mod);
 
+            if (modlist == null) return;
             await modlist.AddModAsync(mod);
         }
 
-        private async Task restartConfirmedAsync()
+        private async Task diffAsync()
         {
-            if (modlist == null || loglist == null)
-                return;
+            if (modDiff == null) return;
 
-            await JsRuntime.InvokeVoidAsync(JsMethods.ShowLogs);
-            ServerConfig.SetMods(new ModCollection(modlist.Mods));
-            await DockerInterop.RestartAsync();
-            loglist.Start();
+            modDiff.Update();
+            await JsRuntime.InvokeVoidAsync(JsMethods.ShowModDiff);
         }
     }
 }

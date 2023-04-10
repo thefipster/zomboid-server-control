@@ -11,6 +11,8 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
 
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             logPuller = new DockerLogPuller(DockerInterop, 500, 50);
             logPuller.LogsPulled += onLogsPulledAsync;
         }
