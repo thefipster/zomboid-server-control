@@ -11,7 +11,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            Mods = ModStorage.Read().ToList();
+            Mods = ModStorage.Get().ToList();
         }
 
         protected override async void OnAfterRender(bool firstRender)
@@ -41,7 +41,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
             var mod = Mods.FirstOrDefault(x => x.WorkshopId == workshopId);
             if (mod != null)
             {
-                ModStorage.Archive(mod);
+                ModArchive.Insert(mod);
                 Mods.Remove(mod);
             }
         }

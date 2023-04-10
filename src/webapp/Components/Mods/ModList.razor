@@ -2,6 +2,7 @@
 @using TheFipster.Zomboid.ServerControl.Services;
 
 @inject ModStorageService ModStorage
+@inject ModArchiveService ModArchive
 @inject IJSRuntime JsRuntime
 
 <div id="fip-mods" class="fill">
@@ -19,7 +20,9 @@
                 data-fip-modid="@mod.Id"
                 data-fip-modname="@mod.Name">
 
-                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=@mod.WorkshopId" title="Open in steam workshop" target="_blank">
+                <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=@mod.WorkshopId"
+                   title="Open in steam workshop"
+                   target="_blank">
                     <i class="fa-brands fa-steam-symbol fa-xl"></i>
                 </a>
 
@@ -30,7 +33,7 @@
 
                 <button class="fip-icon-button fip-warning"
                         title="remove"
-                        @onclick="() => onRemoveClick(mod.WorkshopId)">
+                    @onclick="() => onRemoveClick(mod.WorkshopId)">
                     <i class="fa-solid fa-xmark fa-xl"></i>
                 </button>
             </li>

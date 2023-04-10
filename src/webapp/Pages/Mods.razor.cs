@@ -12,8 +12,9 @@ namespace TheFipster.Zomboid.ServerControl.Pages
 
         private async Task addModAsync(ModConfig mod)
         {
-            if (modlist == null) return;
+            ModArchive.Insert(mod);
 
+            if (modlist == null) return;
             await modlist.AddModAsync(mod);
         }
 

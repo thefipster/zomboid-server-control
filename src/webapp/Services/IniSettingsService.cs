@@ -8,7 +8,9 @@ namespace TheFipster.Zomboid.ServerControl.Services
         private readonly IniFileService fileService;
         private IniSettings settings;
 
-        public IniSettingsService(IniFileService fileService, IOptionsMonitor<IniSettings> settingsMonitor)
+        public IniSettingsService(
+            IniFileService fileService, 
+            IOptionsMonitor<IniSettings> settingsMonitor)
         {
             this.fileService = fileService;
 
@@ -42,7 +44,9 @@ namespace TheFipster.Zomboid.ServerControl.Services
             return selection;
         }
 
-        private void addSettingToDictionary(Dictionary<string, string> selection, string line)
+        private void addSettingToDictionary(
+            Dictionary<string, string> selection, 
+            string line)
         {
             var firstEqualIndex = line.IndexOf('=');
 

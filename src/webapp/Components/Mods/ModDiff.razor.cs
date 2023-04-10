@@ -12,7 +12,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
 
         public void Update()
         {
-            var storedMods = ModStorage.Read();
+            var storedMods = ModStorage.Get();
             var serverMods = ModConfig.GetMods();
 
             setRemovedMods(storedMods, serverMods);

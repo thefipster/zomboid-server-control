@@ -26,7 +26,10 @@ namespace TheFipster.Zomboid.ServerControl.Components.General
             if (firstRender)
             {
                 var dotNetReference = DotNetObjectReference.Create(this);
-                await JsRuntime.InvokeVoidAsync(JsMethods.SyncInstances, dotNetReference);
+                await JsRuntime.InvokeVoidAsync(
+                    JsMethods.SyncInstances, 
+                    dotNetReference
+                );
             }
         }
 

@@ -29,7 +29,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
                 for (int i = 0; i < mods.Count(); i++)
                     mods[i].Order = i;
 
-                ModStorage.Write(mods);
+                ModStorage.Set(mods);
                 await JsRuntime.InvokeVoidAsync(JsMethods.ShowSuccess, "mods-save-btn");
             }
             catch (Exception)
@@ -76,7 +76,7 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
 
         private void applyMods()
         {
-            var mods = ModStorage.Read();
+            var mods = ModStorage.Get();
             var collection = new ModCollection(mods);
             ModConfig.SetMods(collection);
         }

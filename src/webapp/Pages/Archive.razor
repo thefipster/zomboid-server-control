@@ -1,0 +1,10 @@
+﻿@page "/archive"
+@using TheFipster.Zomboid.ServerControl.Components.Archive
+@using TheFipster.Zomboid.ServerControl.Components.Mods;
+@using TheFipster.Zomboid.ServerControl.Models;
+@using TheFipster.Zomboid.ServerControl.Services;
+
+@inject IJSRuntime JsRuntime
+@inject ModArchiveService ModArchive
+
+<ModArchiveList />

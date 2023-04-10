@@ -20,7 +20,9 @@ internal class Program
         builder.Services.AddSingleton<IniFileService>();
         builder.Services.AddSingleton<IniSettingsService>();
         builder.Services.AddSingleton<ModConfigService>();
+        builder.Services.AddSingleton<LiteDatabaseService>();
         builder.Services.AddSingleton<ModStorageService>();
+        builder.Services.AddSingleton<ModArchiveService>();
         builder.Services.AddSingleton<DockerInteropService>();
 
         builder.Services.AddRazorPages();
