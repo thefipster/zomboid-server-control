@@ -1,4 +1,6 @@
-﻿using System.Timers;
+﻿using Microsoft.JSInterop;
+using System.Timers;
+using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Models;
 
 namespace TheFipster.Zomboid.ServerControl.Components.General
@@ -10,10 +12,22 @@ namespace TheFipster.Zomboid.ServerControl.Components.General
 
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             pingTimer.Elapsed += pingDockerLoop;
             pingTimer.Start();
 
             model.ServerIniFilename = FileService.GetIniName();
+        }
+
+        protected override async void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            if (firstRender)
+            {
+                var dotNetReference = DotNetObjectReference.Create(this);
+                await JsRuntime.InvokeVoidAsync(JsMethods.SyncInstances, dotNetReference);
+            }
         }
 
         private async void pingDockerLoop(object? sender, ElapsedEventArgs e)

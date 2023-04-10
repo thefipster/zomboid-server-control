@@ -9,9 +9,8 @@
 
 <div>
     <ModForm OnModAdded="addModAsync" />
-    <ModControls OnRestartConfirmed="restartConfirmedAsync" OnDiff="diffAsync" />
+    <ModControls OnDiff="diffAsync" />
 </div>
 
 <ModList @ref="modlist" />
 <ModDiff @ref="modDiff" />
-<LogList @ref="loglist" />

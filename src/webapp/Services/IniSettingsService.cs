@@ -1,15 +1,23 @@
-﻿using TheFipster.Zomboid.ServerControl.Config;
+﻿using Microsoft.Extensions.Options;
+using TheFipster.Zomboid.ServerControl.Config;
 
 namespace TheFipster.Zomboid.ServerControl.Services
 {
     public class IniSettingsService
     {
         private readonly IniFileService fileService;
-        private readonly IniSettings settings;
+        private IniSettings settings;
 
-        public IniSettingsService(IniFileService fileService, IniSettings settings)
+        public IniSettingsService(IniFileService fileService, IOptionsMonitor<IniSettings> settingsMonitor)
         {
             this.fileService = fileService;
+
+            settings = settingsMonitor.CurrentValue;
+            settingsMonitor.OnChange(settingsChanged);
+        }
+
+        private void settingsChanged(IniSettings settings)
+        {
             this.settings = settings;
         }
 

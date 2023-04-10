@@ -91,7 +91,7 @@
       {
         "Type": "NumberSetting",
         "Name": "MinutesPerPage",
-        "Label": "Minutes to read page of book",
+        "Label": "Ingame minutes to read a page",
         "Short": "Read speed",
         "Info": "",
         "Default": "1",

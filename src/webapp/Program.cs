@@ -15,6 +15,8 @@ internal class Program
         builder.AddConfigSection<IniSettings>(IniSettings.SectionName);
         builder.AddConfigSection<SandboxSettings>(SandboxSettings.SectionName);
 
+        builder.Services.Configure<IniSettings>(builder.Configuration.GetSection(IniSettings.SectionName));
+
         builder.Services.AddSingleton<IniFileService>();
         builder.Services.AddSingleton<IniSettingsService>();
         builder.Services.AddSingleton<ModConfigService>();

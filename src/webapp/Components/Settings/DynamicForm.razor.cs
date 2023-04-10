@@ -15,6 +15,8 @@ namespace TheFipster.Zomboid.ServerControl.Components.Settings
 
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             var iniValues = Service.GetSettings();
             foreach (var value in iniValues)
                 foreach (var setting in Settings.Entries)

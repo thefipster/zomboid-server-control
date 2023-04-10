@@ -23,6 +23,8 @@ namespace TheFipster.Zomboid.ServerControl.Components.Controls
 
         protected override void OnParametersSet()
         {
+            base.OnParametersSet();
+
             if (internalValue != default)
                 return;
 

@@ -24,6 +24,8 @@ namespace TheFipster.Zomboid.ServerControl.Components.Controls
 
         protected override void OnParametersSet()
         {
+            base.OnParametersSet();
+
             if (valueSet || Setting == null)
                 return;
 

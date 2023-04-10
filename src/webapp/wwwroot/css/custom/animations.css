@@ -1,0 +1,53 @@
+﻿.breath {
+    animation-duration: 500ms;
+    animation-name: breath;
+    animation-iteration-count: 4;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes breath {
+    from {
+        background-color: transparent;
+    }
+
+    to {
+        background-color: rgba(228, 169, 255, 0.2);
+    }
+}
+
+.fip-success {
+    animation-duration: 500ms;
+    animation-name: fip-success;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes fip-success {
+    from {
+        background-color: transparent;
+    }
+
+    to {
+        background-color: rgba(0, 153, 51, 0.5);
+    }
+}
+
+.fip-failure {
+    animation-duration: 500ms;
+    animation-name: fip-failure;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes fip-failure {
+    from {
+        background-color: transparent;
+    }
+
+    to {
+        background-color: rgba(204, 0, 0, 0.5);
+    }
+}
