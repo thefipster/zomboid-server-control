@@ -1,4 +1,5 @@
 ﻿@page "/changes"
+@using TheFipster.Zomboid.ServerControl.Components.Changes
 @using TheFipster.Zomboid.ServerControl.Components.Mods;
 @using TheFipster.Zomboid.ServerControl.Models;
 @using TheFipster.Zomboid.ServerControl.Services;
@@ -8,15 +9,10 @@
 
 <div>
     <h2>
+        <i class="fa-solid fa-arrows-split-up-and-left fa-xl"></i>
         Changes
     </h2>
 
-    <p>
-        Welcome to the changes screen showing the differences between
-        the current profile and the server configuration...
-    </p>
-    <p>
-        ...as soon as it is implemented
-    </p>
+    <ModDiff />
 
 </div>

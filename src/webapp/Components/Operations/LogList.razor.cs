@@ -2,7 +2,7 @@
 using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Data;
 
-namespace TheFipster.Zomboid.ServerControl.Components.Mods
+namespace TheFipster.Zomboid.ServerControl.Components.Operations
 {
     public partial class LogList
     {

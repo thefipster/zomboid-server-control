@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Data;
 using TheFipster.Zomboid.ServerControl.Models;
@@ -11,9 +10,6 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
         private readonly ConfirmTimer timer = new(2000, 2);
 
         public string btnText = Messages.DefaultRestartButtonText;
-
-        [Parameter]
-        public EventCallback OnDiff { get; set; }
 
         protected override void OnInitialized()
         {
@@ -37,11 +33,6 @@ namespace TheFipster.Zomboid.ServerControl.Components.Mods
                 await JsRuntime.InvokeVoidAsync(JsMethods.ShowFailure, "mods-save-btn");
             }
 
-        }
-
-        private async Task onDiffClickAsync()
-        {
-            await OnDiff.InvokeAsync();
         }
 
         private void onApplyClick()

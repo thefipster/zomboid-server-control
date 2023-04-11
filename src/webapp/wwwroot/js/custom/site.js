@@ -31,22 +31,6 @@ interop.setupModsDragAndDrop = function () {
         });
 };
 
-interop.showMods = function () {
-    document.getElementById("fip-mods").style.display = "block";
-    document.getElementById("fip-mods-diff").style.display = "none";
-
-    document.getElementById("mods-add-btn").disabled = false;
-    document.getElementById("mods-apply-btn").disabled = false;
-};
-
-interop.showModDiff = function () {
-    document.getElementById("fip-mods").style.display = "none";
-    document.getElementById("fip-mods-diff").style.display = "block";
-
-    document.getElementById("mods-add-btn").disabled = true;
-    document.getElementById("mods-apply-btn").disabled = false;
-};
-
 interop.alert = function (message) {
     alert(message);
 };

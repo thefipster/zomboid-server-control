@@ -2,13 +2,22 @@
 using TheFipster.Zomboid.ServerControl.Config;
 using TheFipster.Zomboid.ServerControl.Models;
 
-namespace TheFipster.Zomboid.ServerControl.Components.Mods
+namespace TheFipster.Zomboid.ServerControl.Components.Changes
 {
     public partial class ModDiff
     {
         private IEnumerable<ModConfig> removed = new List<ModConfig>();
         private IEnumerable<ModConfig> added = new List<ModConfig>();
         private IEnumerable<ModConfig> same = new List<ModConfig>();
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            if (firstRender)
+            {
+                Update();
+            }
+        }
 
         public void Update()
         {

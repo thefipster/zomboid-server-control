@@ -9,6 +9,19 @@
     font-size: 1.05rem;
 }
 
+/*
+    this is madness, 
+    chrome applies !important custom style 
+    in case input is autofilled by chrome.
+    This will prevent the custom style from 
+    being applied.
+
+*/ 
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus {
+        transition: background-color 600000s 0s, color 600000s 0s;
+    }
+
 .fip-input-wrap {
     margin-bottom: 30px;
 }
@@ -35,9 +48,18 @@
     transition: 0.1s;
 }
 
-.fip-button i {
-    margin-right: 10px;
+a.fip-button {
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-weight: unset;
 }
+
+    .fip-button i {
+        margin-right: 10px;
+    }
 
 button:first-of-type {
     margin-top: 0;

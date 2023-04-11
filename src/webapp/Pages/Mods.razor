@@ -3,15 +3,13 @@
 @using TheFipster.Zomboid.ServerControl.Models;
 @using TheFipster.Zomboid.ServerControl.Services;
 
-@inject IJSRuntime JsRuntime
 @inject ModConfigService ServerConfig
 @inject ModArchiveService ModArchive
 @inject DockerInteropService DockerInterop
 
 <div>
     <ModForm OnModAdded="addModAsync" />
-    <ModControls OnDiff="diffAsync" />
+    <ModControls />
 </div>
 
 <ModList @ref="modlist" />
-<ModDiff @ref="modDiff" />

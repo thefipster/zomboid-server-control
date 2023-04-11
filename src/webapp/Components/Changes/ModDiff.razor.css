@@ -1,26 +1,14 @@
-﻿#fip-mods-diff {
-    flex-grow: 4;
-    display: none;
-}
-
-.mod-diff-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+﻿.mod-diff-container {
+    width: 100%;
 }
 
 .mod-diff-content {
-    overflow: hidden;
-    overflow-y: auto;
-    margin-bottom: 30px;
-    margin-right: -55px;
+    width: 100%;
 }
 
 ul {
     margin: 0;
     padding: 0;
-    padding-right: 55px;
 }
 
 li {
