@@ -7,9 +7,11 @@
 @inject ModArchiveService ModArchive
 @inject DockerInteropService DockerInterop
 
-<div>
-    <ModForm OnModAdded="addModAsync" />
-    <ModControls />
-</div>
+<div class="fip-content">
+    <div class="fip-sidebar">
+        <ModForm OnModAdded="addModAsync" />
+        <ModControls />
+    </div>
 
-<ModList @ref="modlist" />
+    <ModList @ref="modlist" />
+</div>

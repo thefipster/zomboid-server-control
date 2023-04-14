@@ -16,7 +16,6 @@
     <base href="~/" />
 
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/poppins">
-    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css">
@@ -33,17 +32,13 @@
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 <body>
-    <div class="fip-container">
-        <div class="fip-header">
-            <component type="typeof(PageHeadline)" render-mode="ServerPrerendered" />
-        </div>
-        <div class="fip-footer">
-            <component type="typeof(StatusBar)" render-mode="ServerPrerendered" />
-        </div>
-        <div class="fip-content">
-            @RenderBody()
-        </div>
+    <component type="typeof(PageHeadline)" render-mode="ServerPrerendered" />
+
+    <div id="fips-app">
+        @RenderBody()
     </div>
+
+    <component type="typeof(StatusBar)" render-mode="ServerPrerendered" />
 
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
@@ -58,6 +53,7 @@
 
     <script src="_framework/blazor.server.js"></script>
     <script src="js/sortablejs/Sortable.min.js"></script>
-    <script src="js/custom/site.js" defer></script>
+    <script src="js/custom/events.js" defer></script>
+    <script src="js/custom/interop.js" defer></script>
 </body>
 </html>

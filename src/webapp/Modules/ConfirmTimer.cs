@@ -1,6 +1,6 @@
 ﻿using System.Timers;
 
-namespace TheFipster.Zomboid.ServerControl.Data
+namespace TheFipster.Zomboid.ServerControl.Modules
 {
     public class ConfirmTimer
     {

@@ -2,8 +2,12 @@
 
 @using TheFipster.Zomboid.ServerControl.Components.Settings;
 
-<div>
-    <Overview />
+<div class="fip-content">
+    <div class="fip-sidebar">
+        <Overview />
+    </div>
+    <div class="fip-main fill">
+        <DynamicForm OnValueChanged="valueChanged" />
+    </div>
+    @*<DebugModel Model="Model" />*@
 </div>
-@*<DebugModel Model="Model" />*@
-<DynamicForm OnValueChanged="valueChanged" />

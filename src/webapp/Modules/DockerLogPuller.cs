@@ -2,7 +2,7 @@
 using TheFipster.Zomboid.ServerControl.Services;
 using Timer = System.Timers.Timer;
 
-namespace TheFipster.Zomboid.ServerControl.Data
+namespace TheFipster.Zomboid.ServerControl.Modules
 {
     public class DockerLogPuller
     {

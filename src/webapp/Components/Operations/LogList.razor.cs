@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using TheFipster.Zomboid.ServerControl.Config;
-using TheFipster.Zomboid.ServerControl.Data;
+using TheFipster.Zomboid.ServerControl.Modules;
 
 namespace TheFipster.Zomboid.ServerControl.Components.Operations
 {

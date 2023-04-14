@@ -4,7 +4,7 @@
 @inject DockerInteropService DockerService
 @inject IJSRuntime JsRuntime
 
-<div>
+<div id="status-bar">
     @if (model.IsReady)
     {
         <span title="Active configuration file">

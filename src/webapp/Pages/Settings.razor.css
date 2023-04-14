@@ -1,6 +1,20 @@
-﻿@media only screen and (max-width: 1000px) {
+﻿div.fip-sidebar {
+    position: fixed;
+    width: 250px;
+    transition: all .2s ease;
+}
 
-    div {
-        display: none;
+div.fip-main {
+    margin-left: 360px;
+    transition: all .2s ease;
+}
+
+@media only screen and (max-width: 1250px) {
+    div.fip-sidebar {
+        opacity: 0;
+    }
+
+    div.fip-main {
+        margin-left: 0px;
     }
 }

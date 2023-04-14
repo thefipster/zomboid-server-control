@@ -45,18 +45,54 @@ interop.focus = function () {
 };
 
 interop.scrollToAnchor = function (elementId, anchorName) {
-    //const overflow = document.getElementById(elementId);
+
     const anchor = document.getElementById(anchorName);
-    anchor.scrollIntoView();
+    const rectAnchor = anchor.getBoundingClientRect();
 
-    //const rectOverflow = document.getBoundingClientRect();
-    //const rectAnchor = anchor.getBoundingClientRect();
+    const header = document.getElementById("page-header");
+    const footer = document.getElementById("status-bar");
 
-    //if (rectAnchor.top < rectOverflow.top) {
-    //    document.scrollTop += rectAnchor.top - rectOverflow.top;
-    //} else if (rectAnchor.bottom > rectOverflow.bottom) {
-    //    document.scrollTop += rectAnchor.bottom - rectOverflow.bottom;
+    const topOverlay = header.getBoundingClientRect().height;
+    const bottomOverlay = footer.getBoundingClientRect().height;
+
+    const windowHeight = document.documentElement.clientHeight;
+
+    const scrollPosition = window.pageYOffset;
+
+    let scrollHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
+
+    const visibleTop = scrollPosition + topOverlay;
+    const visibleBottom = scrollPosition + windowHeight - bottomOverlay;
+
+    console.log("HIGHLIGHT");
+    console.log("header overlay: " + topOverlay);
+    console.log("footer overlay: " + bottomOverlay);
+    console.log("window height: " + windowHeight);
+    console.log("scroll height: " + scrollHeight);
+    console.log("scroll pos: " + scrollPosition);
+    console.log("visible top: " + visibleTop);
+    console.log("visible bottom: " + visibleBottom);
+    console.log("anchor top: " + rectAnchor.top);
+    console.log("anchor bottom: " + rectAnchor.bottom);
+
+    var scroll = (rectAnchor.top + rectAnchor.bottom) / 2;
+    console.log("scroll: " + scroll);
+    //if (scroll < 110) {
+    //    scroll += 130;
     //}
+    //if (scroll > 1200) {
+    //    scroll -= 130;
+    //}
+
+    console.log("scroll: " + scroll);
+
+    if (scroll < 100 || scroll > 1210) {
+        window.scrollBy({ top: scroll });
+    }
 
     anchor.classList.add("breath");
     setTimeout(function () {

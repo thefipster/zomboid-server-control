@@ -145,6 +145,235 @@
         "Short": "Need sleep",
         "Info": "",
         "Default": "false"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "TrashDeleteAll",
+        "Label": "Allow trash deletion",
+        "Short": "Trash deletion",
+        "Info": "",
+        "Default": "false"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "PlayerBumpPlayer",
+        "Label": "Player bumps other players",
+        "Short": "Players bump",
+        "Info": "",
+        "Default": "false"
+      },
+      {
+        "Type": "NumberSetting",
+        "Name": "BackupsCount",
+        "Label": "Number of backups to keep",
+        "Short": "Backup count",
+        "Info": "",
+        "Default": "5",
+        "Limits": {
+          "Min": 1,
+          "Max": 300,
+          "Step": 1
+        }
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "BackupsOnStart",
+        "Label": "Server creates backup on startup",
+        "Short": "Backup on start",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType1",
+        "Label": "Anti Cheat Protection Type 1",
+        "Short": "Anticheat Type 1",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType2",
+        "Label": "Anti Cheat Protection Type 2",
+        "Short": "Anticheat Type 2",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType3",
+        "Label": "Anti Cheat Protection Type 3",
+        "Short": "Anticheat Type 3",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType4",
+        "Label": "Anti Cheat Protection Type 4",
+        "Short": "Anticheat Type 4",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType5",
+        "Label": "Anti Cheat Protection Type 5",
+        "Short": "Anticheat Type 5",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType6",
+        "Label": "Anti Cheat Protection Type 6",
+        "Short": "Anticheat Type 6",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType7",
+        "Label": "Anti Cheat Protection Type 7",
+        "Short": "Anticheat Type 7",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType8",
+        "Label": "Anti Cheat Protection Type 8",
+        "Short": "Anticheat Type 8",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType9",
+        "Label": "Anti Cheat Protection Type 9",
+        "Short": "Anticheat Type 9",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType10",
+        "Label": "Anti Cheat Protection Type 10",
+        "Short": "Anticheat Type 10",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType11",
+        "Label": "Anti Cheat Protection Type 11",
+        "Short": "Anticheat Type 11",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType12",
+        "Label": "Anti Cheat Protection Type 12",
+        "Short": "Anticheat Type 12",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType13",
+        "Label": "Anti Cheat Protection Type 13",
+        "Short": "Anticheat Type 13",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType14",
+        "Label": "Anti Cheat Protection Type 14",
+        "Short": "Anticheat Type 14",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType15",
+        "Label": "Anti Cheat Protection Type 15",
+        "Short": "Anticheat Type 15",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType16",
+        "Label": "Anti Cheat Protection Type 16",
+        "Short": "Anticheat Type 16",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType17",
+        "Label": "Anti Cheat Protection Type 17",
+        "Short": "Anticheat Type 17",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType18",
+        "Label": "Anti Cheat Protection Type 18",
+        "Short": "Anticheat Type 18",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType19",
+        "Label": "Anti Cheat Protection Type 19",
+        "Short": "Anticheat Type 19",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType20",
+        "Label": "Anti Cheat Protection Type 20",
+        "Short": "Anticheat Type 20",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType21",
+        "Label": "Anti Cheat Protection Type 21",
+        "Short": "Anticheat Type 21",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType22",
+        "Label": "Anti Cheat Protection Type 22",
+        "Short": "Anticheat Type 22",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType23",
+        "Label": "Anti Cheat Protection Type 23",
+        "Short": "Anticheat Type23",
+        "Info": "",
+        "Default": "true"
+      },
+      {
+        "Type": "BoolSetting",
+        "Name": "AntiCheatProtectionType24",
+        "Label": "Anti Cheat Protection Type 24",
+        "Short": "Anticheat Type24",
+        "Info": "",
+        "Default": "true"
       }
     ]
   }

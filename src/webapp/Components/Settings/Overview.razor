@@ -11,11 +11,11 @@
         Navigator
     </h2>
     <ul>
-        @foreach (var entry in Settings.Entries.OrderBy(x => x.Name))
+        @foreach (var entry in Settings.Entries.OrderBy(x => x.Short))
         {
             <li>
                 <a onclick="@(() => onClickAsync(entry.Name))">
-                    @entry.Name
+                    @entry.Short
                 </a>
             </li>
         }

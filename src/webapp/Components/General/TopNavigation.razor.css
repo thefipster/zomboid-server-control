@@ -22,6 +22,7 @@ i {
 span {
     height: 25px;
     color: #ccc;
+    transition-duration: .2s;
 }
 
 ul {
@@ -36,26 +37,14 @@ li {
     text-transform: uppercase;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1250px) {
     ul {
-        gap: 20px;
-    }
-}
-
-@media only screen and (max-width: 1000px) {
-
-    ul {
-        justify-content: center;
-        margin-bottom: 10px;
-    }
-
-    i {
-        font-size: 1.4rem;
+        gap: 10px;
     }
 
     span {
-        height: 15px;
-        color: #ccc;
-        font-size: .8rem;
+        height: 10px;
+        color: transparent;
+        transition-duration: .2s;
     }
 }
